@@ -36,14 +36,6 @@ export default function Navbar() {
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href="#products"
-              className="font-sans text-[0.94rem] font-medium text-ivory bg-gold px-5 py-2 rounded-comfortable no-underline transition-colors hover:bg-gold-dark"
-            >
-              New Arrivals
-            </a>
-          </li>
         </ul>
 
         {/* Icons + hamburger */}
@@ -144,13 +136,6 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#products"
-            className="block w-full text-center btn-primary"
-            onClick={() => setMobileOpen(false)}
-          >
-            New Arrivals
-          </a>
         </div>
       )}
     </nav>
