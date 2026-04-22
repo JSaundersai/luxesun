@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #f5f4ed;
+    color: #141413;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block bg-gold text-ivory font-sans text-[0.94rem] font-medium
+      px-8 py-3.5 rounded-comfortable cursor-pointer
+      transition-all duration-200 hover:bg-gold-dark hover:-translate-y-0.5;
+    box-shadow: #ccb04a 0px 0px 0px 0px, #ccb04a 0px 0px 0px 1px;
+  }
+
+  .btn-secondary {
+    @apply inline-block bg-transparent text-ivory font-sans text-[0.94rem]
+      px-8 py-3.5 rounded-comfortable cursor-pointer border border-white/30
+      transition-all duration-200 hover:bg-white/[0.08] hover:border-white/50;
+  }
+
+  .btn-warm {
+    @apply inline-block bg-warm-sand text-charcoal-warm font-sans text-[0.94rem] font-medium
+      px-5 py-2.5 rounded-comfortable cursor-pointer transition-all duration-200;
+    box-shadow: #e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px;
+  }
+
+  .section-eyebrow {
+    @apply font-sans text-xs font-medium tracking-[0.3em] uppercase text-gold mb-3;
+  }
+
+  .section-title {
+    @apply font-serif text-[2.8rem] font-medium leading-[1.2] text-near-black mb-4;
+  }
+
+  .section-desc {
+    @apply font-sans text-[1.05rem] leading-relaxed text-olive-gray max-w-xl;
+  }
+}

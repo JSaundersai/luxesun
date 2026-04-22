@@ -3,85 +3,775 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Sun</title>
+    <title>Luxe Sun — Women's Activewear</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ========================================
+           DESIGN TOKENS — from design.md
+           Hero brand color: #ccb04a (golden)
+           ======================================== */
+        :root {
+            /* Brand */
+            --gold-brand: #ccb04a;
+            --gold-light: #d9c36e;
+            --gold-dark: #b59a3a;
+
+            /* Surfaces */
+            --parchment: #f5f4ed;
+            --ivory: #faf9f5;
+            --white: #ffffff;
+            --warm-sand: #e8e6dc;
+
+            /* Dark */
+            --near-black: #141413;
+            --dark-surface: #30302e;
+
+            /* Text */
+            --charcoal-warm: #4d4c48;
+            --olive-gray: #5e5d59;
+            --stone-gray: #87867f;
+            --dark-warm: #3d3d3a;
+            --warm-silver: #b0aea5;
+
+            /* Borders */
+            --border-cream: #f0eee6;
+            --border-warm: #e8e6dc;
+            --ring-warm: #d1cfc5;
+
+            /* Typography */
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Cormorant Garamond', serif;
-            overflow: hidden;
+            font-family: var(--sans);
+            background: var(--parchment);
+            color: var(--near-black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        .background-container {
-            position: fixed;
+
+        /* ========================================
+           ANNOUNCEMENT BAR
+           ======================================== */
+        .announcement-bar {
+            background: var(--near-black);
+            color: var(--warm-silver);
+            text-align: center;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            font-family: var(--sans);
+            letter-spacing: 0.12px;
+        }
+
+        .announcement-bar span {
+            color: var(--gold-brand);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            z-index: 100;
+            background: var(--parchment);
+            border-bottom: 1px solid var(--border-cream);
+            backdrop-filter: blur(12px);
         }
-        .background-image {
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--near-black);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: var(--sans);
+            font-size: 0.94rem;
+            font-weight: 400;
+            color: var(--olive-gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--near-black);
+        }
+
+        .nav-cta {
+            background: var(--gold-brand) !important;
+            color: var(--ivory) !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 500 !important;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-dark) !important;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .nav-icon {
+            color: var(--olive-gray);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-icon:hover {
+            color: var(--near-black);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--near-black);
+            border-radius: 2px;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--near-black);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(8px) brightness(0.7);
-            transform: scale(1.1);
+            opacity: 0.5;
         }
-        .glass-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            z-index: 0;
-        }
-        .content {
-            position: relative;
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(20, 20, 19, 0.3) 0%,
+                rgba(20, 20, 19, 0.6) 100%
+            );
             z-index: 1;
-            text-align: center;
-            color: white;
-            padding: 2rem;
         }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            font-weight: 400;
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 500;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-            animation: fadeInUp 1.5s ease-out;
+            color: var(--gold-brand);
+            margin-bottom: 24px;
         }
-        .subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 1.10;
+            color: var(--ivory);
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--sans);
+            font-size: 1.15rem;
             font-weight: 300;
-            font-style: italic;
-            letter-spacing: 0.5em;
+            line-height: 1.6;
+            color: var(--warm-silver);
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold-brand);
+            color: var(--ivory);
+            font-family: var(--sans);
+            font-size: 0.94rem;
+            font-weight: 500;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: var(--gold-brand) 0px 0px 0px 0px, var(--gold-brand) 0px 0px 0px 1px;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--ivory);
+            font-family: var(--sans);
+            font-size: 0.94rem;
+            font-weight: 400;
+            padding: 14px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid rgba(250, 249, 245, 0.3);
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(250, 249, 245, 0.08);
+            border-color: rgba(250, 249, 245, 0.5);
+        }
+
+        /* ========================================
+           SECTION UTILITIES
+           ======================================== */
+        .section {
+            padding: 100px 24px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-eyebrow {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            opacity: 0.9;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-            animation: fadeInUp 1.5s ease-out 0.5s both;
+            color: var(--gold-brand);
+            margin-bottom: 12px;
         }
-        .divider {
-            width: 100px;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.5);
-            margin: 2rem auto;
-            animation: fadeInUp 1.5s ease-out 0.3s both;
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: 2.8rem;
+            font-weight: 500;
+            line-height: 1.20;
+            color: var(--near-black);
+            margin-bottom: 16px;
         }
+
+        .section-desc {
+            font-family: var(--sans);
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--olive-gray);
+            max-width: 560px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .section-desc {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ========================================
+           CATEGORY CARDS
+           ======================================== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+            cursor: pointer;
+            background: var(--dark-surface);
+        }
+
+        .category-card-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-card-bg {
+            transform: scale(1.05);
+        }
+
+        .category-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(20, 20, 19, 0.7) 0%,
+                rgba(20, 20, 19, 0.0) 50%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px;
+        }
+
+        .category-card-title {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--ivory);
+            margin-bottom: 4px;
+        }
+
+        .category-card-count {
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            color: var(--warm-silver);
+            letter-spacing: 0.05em;
+        }
+
+        /* ========================================
+           PRODUCT GRID
+           ======================================== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--ivory);
+            border: 1px solid var(--border-cream);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 24px;
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            aspect-ratio: 3 / 4;
+            background: var(--warm-sand);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stone-gray);
+            font-family: var(--sans);
+            font-size: 0.8rem;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--gold-brand);
+            color: var(--ivory);
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .product-info {
+            padding: 16px 20px 20px;
+        }
+
+        .product-name {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--near-black);
+            margin-bottom: 4px;
+        }
+
+        .product-category {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            color: var(--stone-gray);
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--near-black);
+        }
+
+        .product-price-original {
+            text-decoration: line-through;
+            color: var(--stone-gray);
+            font-weight: 400;
+            margin-left: 8px;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .color-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 1px solid var(--border-warm);
+        }
+
+        /* ========================================
+           FEATURE BANNER (Split)
+           ======================================== */
+        .feature-banner {
+            background: var(--near-black);
+        }
+
+        .feature-banner .section-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .feature-text {
+            padding: 40px 0;
+        }
+
+        .feature-text .section-eyebrow {
+            color: var(--gold-brand);
+        }
+
+        .feature-text .section-title {
+            color: var(--ivory);
+            font-size: 2.5rem;
+        }
+
+        .feature-text .section-desc {
+            color: var(--warm-silver);
+            margin-bottom: 32px;
+        }
+
+        .feature-image {
+            aspect-ratio: 4 / 5;
+            background: var(--dark-surface);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--olive-gray);
+            font-family: var(--sans);
+            font-size: 0.85rem;
+        }
+
+        /* ========================================
+           TESTIMONIALS
+           ======================================== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--ivory);
+            border: 1px solid var(--border-cream);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .testimonial-stars {
+            color: var(--gold-brand);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--charcoal-warm);
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--near-black);
+        }
+
+        .testimonial-role {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            color: var(--stone-gray);
+        }
+
+        /* ========================================
+           VALUES STRIP
+           ======================================== */
+        .values-strip {
+            background: var(--ivory);
+            border-top: 1px solid var(--border-cream);
+            border-bottom: 1px solid var(--border-cream);
+            padding: 48px 24px;
+        }
+
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .value-item-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--gold-brand);
+        }
+
+        .value-item-title {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--near-black);
+            margin-bottom: 6px;
+        }
+
+        .value-item-desc {
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            color: var(--stone-gray);
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           NEWSLETTER
+           ======================================== */
+        .newsletter {
+            background: var(--parchment);
+            text-align: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 460px;
+            margin: 32px auto 0;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid var(--border-warm);
+            border-radius: 8px;
+            background: var(--white);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            color: var(--near-black);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--stone-gray);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--gold-brand);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: var(--near-black);
+            color: var(--warm-silver);
+            padding: 80px 24px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--ivory);
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--warm-silver);
+            max-width: 300px;
+        }
+
+        .footer-heading {
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ivory);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            font-size: 0.88rem;
+            color: var(--warm-silver);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-brand);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--dark-surface);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--stone-gray);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            color: var(--warm-silver);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-social a:hover {
+            color: var(--gold-brand);
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -92,27 +782,405 @@
                 transform: translateY(0);
             }
         }
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-                letter-spacing: 0.2em;
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 991px) {
+            .nav-links {
+                display: none;
             }
-            .subtitle {
-                font-size: 1.2rem;
-                letter-spacing: 0.3em;
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-banner .section-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                min-height: 70vh;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 64px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 479px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background-container">
-        <img src="beach_volleyball.jpg" alt="Background" class="background-image">
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Free shipping on orders over <span>$75</span> — New arrivals dropping weekly
     </div>
-    <div class="glass-overlay"></div>
-    <div class="content">
-        <h1>Luxe Sun</h1>
-        <div class="divider"></div>
-        <p class="subtitle">Coming Soon</p>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">Luxe Sun</a>
+            <ul class="nav-links">
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#products">Shop All</a></li>
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#" class="nav-cta">New Arrivals</a></li>
+            </ul>
+            <div class="nav-icons">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </span>
+                <span class="nav-icon" style="position: relative;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span style="position: absolute; top: -6px; right: -6px; background: var(--gold-brand); color: white; font-size: 0.6rem; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;">2</span>
+                </span>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="beach_volleyball.jpg" alt="Women in activewear" onerror="this.style.display='none'">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Summer 2026 Collection</p>
+            <h1 class="hero-title">Move with Intention,<br>Glow with Confidence</h1>
+            <p class="hero-subtitle">Premium women's activewear designed for the sun-kissed lifestyle. Performance fabrics meet effortless style.</p>
+            <div class="hero-actions">
+                <a href="#products" class="btn-primary">Shop the Collection</a>
+                <a href="#about" class="btn-secondary">Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Strip -->
+    <div class="values-strip">
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-item-icon">&#9744;</div>
+                <div class="value-item-title">Sustainable Fabrics</div>
+                <div class="value-item-desc">Recycled & organic materials in every piece</div>
+            </div>
+            <div class="value-item">
+                <div class="value-item-icon">&#9733;</div>
+                <div class="value-item-title">UPF 50+ Protection</div>
+                <div class="value-item-desc">Built-in sun protection for outdoor sessions</div>
+            </div>
+            <div class="value-item">
+                <div class="value-item-icon">&#8634;</div>
+                <div class="value-item-title">Free Returns</div>
+                <div class="value-item-desc">30-day hassle-free returns on all orders</div>
+            </div>
+            <div class="value-item">
+                <div class="value-item-icon">&#9829;</div>
+                <div class="value-item-title">Women-Owned</div>
+                <div class="value-item-desc">Designed by women, for women who move</div>
+            </div>
+        </div>
     </div>
+
+    <!-- Categories Section -->
+    <section id="collections" class="section" style="background: var(--parchment);">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-eyebrow">Collections</p>
+                <h2 class="section-title">Shop by Category</h2>
+                <p class="section-desc">From sunrise yoga to sunset runs — find your perfect fit for every movement.</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg, #c2a060 0%, #a08040 100%);"></div>
+                    <div class="category-card-overlay">
+                        <div class="category-card-title">Leggings</div>
+                        <div class="category-card-count">24 styles</div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg, #8a9a7a 0%, #6a7a5a 100%);"></div>
+                    <div class="category-card-overlay">
+                        <div class="category-card-title">Sports Bras</div>
+                        <div class="category-card-count">18 styles</div>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div style="width:100%;height:100%;background:linear-gradient(135deg, #b08870 0%, #906850 100%);"></div>
+                    <div class="category-card-overlay">
+                        <div class="category-card-title">Tops & Tanks</div>
+                        <div class="category-card-count">32 styles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="section" style="background: var(--ivory);">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-eyebrow">Bestsellers</p>
+                <h2 class="section-title">Most Loved This Season</h2>
+                <p class="section-desc">Our community's top picks — tried, tested, and obsessed over.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-image-placeholder">Product Image</div>
+                        <span class="product-badge">New</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Soleil High-Rise Legging</div>
+                        <div class="product-category">Leggings</div>
+                        <div class="product-price">$98</div>
+                        <div class="product-colors">
+                            <span class="color-swatch" style="background: #2d2d2d;"></span>
+                            <span class="color-swatch" style="background: #ccb04a;"></span>
+                            <span class="color-swatch" style="background: #8a9a7a;"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-image-placeholder">Product Image</div>
+                        <span class="product-badge">Bestseller</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Golden Hour Sports Bra</div>
+                        <div class="product-category">Sports Bras</div>
+                        <div class="product-price">$68</div>
+                        <div class="product-colors">
+                            <span class="color-swatch" style="background: #f5f0e0;"></span>
+                            <span class="color-swatch" style="background: #141413;"></span>
+                            <span class="color-swatch" style="background: #b08870;"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-image-placeholder">Product Image</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Dusk Ribbed Tank</div>
+                        <div class="product-category">Tops & Tanks</div>
+                        <div class="product-price">$52</div>
+                        <div class="product-colors">
+                            <span class="color-swatch" style="background: #e8e0d0;"></span>
+                            <span class="color-swatch" style="background: #4a4a44;"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-image-placeholder">Product Image</div>
+                        <span class="product-badge" style="background: var(--near-black);">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Sunrise Flare Short</div>
+                        <div class="product-category">Shorts</div>
+                        <div class="product-price">$54 <span class="product-price-original">$72</span></div>
+                        <div class="product-colors">
+                            <span class="color-swatch" style="background: #ccb04a;"></span>
+                            <span class="color-swatch" style="background: #c96442;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Banner -->
+    <section class="section feature-banner">
+        <div class="section-inner">
+            <div class="feature-text">
+                <p class="section-eyebrow">Performance Meets Beauty</p>
+                <h2 class="section-title" style="color: var(--ivory);">Designed for the<br>Sun-Kissed Life</h2>
+                <p class="section-desc" style="color: var(--warm-silver);">Every piece is crafted with 4-way stretch, moisture-wicking technology, and UPF 50+ protection. Because your activewear should work as hard as you do — from the studio to the shoreline.</p>
+                <a href="#" class="btn-primary">Explore Fabrics</a>
+            </div>
+            <div class="feature-image">
+                Lifestyle Image
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background: var(--parchment);">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-eyebrow">Community</p>
+                <h2 class="section-title">What Our Girls Say</h2>
+                <p class="section-desc">Real reviews from women who live in Luxe Sun.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"The Soleil leggings are genuinely the softest thing I've ever worked out in. They stayed put through my entire hot yoga class."</p>
+                    <div class="testimonial-author">Sarah M.</div>
+                    <div class="testimonial-role">Verified Buyer</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Finally a brand that gets it — cute enough for brunch, technical enough for trail runs. The UPF protection is a game-changer."</p>
+                    <div class="testimonial-author">Mia L.</div>
+                    <div class="testimonial-role">Verified Buyer</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"I ordered three pieces and ended up buying the entire collection. The golden colour is just stunning and so flattering on every skin tone."</p>
+                    <div class="testimonial-author">Jess K.</div>
+                    <div class="testimonial-role">Verified Buyer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section id="about" class="section newsletter">
+        <div class="section-inner">
+            <p class="section-eyebrow">Stay Golden</p>
+            <h2 class="section-title">Join the Luxe Sun Community</h2>
+            <p class="section-desc" style="margin-left: auto; margin-right: auto;">Be the first to know about new drops, exclusive offers, and sun-soaked inspiration. Plus, get 15% off your first order.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault();">
+                <input type="email" class="newsletter-input" placeholder="Enter your email">
+                <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">Luxe Sun</div>
+                    <p class="footer-desc">Premium women's activewear for the sun-kissed lifestyle. Move beautifully, live boldly.</p>
+                </div>
+                <div>
+                    <div class="footer-heading">Shop</div>
+                    <ul class="footer-links">
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Bestsellers</a></li>
+                        <li><a href="#">Leggings</a></li>
+                        <li><a href="#">Sports Bras</a></li>
+                        <li><a href="#">Tops & Tanks</a></li>
+                        <li><a href="#">Shorts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-heading">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-heading">Support</div>
+                    <ul class="footer-links">
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Luxe Sun. All rights reserved.</span>
+                <div class="footer-social">
+                    <a href="#">Instagram</a>
+                    <a href="#">TikTok</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
