@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import ValuesStrip from "@/components/sections/ValuesStrip";
 import Categories from "@/components/sections/Categories";
+import EditorialBanner from "@/components/sections/EditorialBanner";
 import FeaturedProducts from "@/components/sections/FeaturedProducts";
 import FeatureBanner from "@/components/sections/FeatureBanner";
 import Testimonials from "@/components/sections/Testimonials";
@@ -12,10 +13,11 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="pt-0">
         <Hero />
         <ValuesStrip />
         <Categories />
+        <EditorialBanner />
         <FeaturedProducts />
         <FeatureBanner />
         <Testimonials />

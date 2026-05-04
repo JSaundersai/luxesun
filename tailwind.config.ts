@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand
-        gold: {
-          DEFAULT: "#ccb04a",
-          light: "#d9c36e",
-          dark: "#b59a3a",
+        // Brand — warm terracotta accent for activewear
+        terracotta: {
+          DEFAULT: "#c96442",
+          light: "#d97757",
+          dark: "#a85338",
         },
         // Surfaces
         parchment: "#f5f4ed",
@@ -45,7 +45,7 @@ const config: Config = {
       },
       boxShadow: {
         whisper: "rgba(0,0,0,0.05) 0px 4px 24px",
-        "ring-gold": "#ccb04a 0px 0px 0px 0px, #ccb04a 0px 0px 0px 1px",
+        "ring-terracotta": "#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px",
         "ring-warm": "#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px",
       },
       keyframes: {

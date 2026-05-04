@@ -19,33 +19,32 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-gold text-ivory font-sans text-[0.94rem] font-medium
-      px-8 py-3.5 rounded-comfortable cursor-pointer
-      transition-all duration-200 hover:bg-gold-dark hover:-translate-y-0.5;
-    box-shadow: #ccb04a 0px 0px 0px 0px, #ccb04a 0px 0px 0px 1px;
+    @apply inline-block bg-near-black text-ivory font-sans text-[0.8rem] font-medium
+      tracking-[0.15em] uppercase px-10 py-4 cursor-pointer
+      transition-all duration-300 hover:bg-dark-surface;
   }
 
   .btn-secondary {
-    @apply inline-block bg-transparent text-ivory font-sans text-[0.94rem]
-      px-8 py-3.5 rounded-comfortable cursor-pointer border border-white/30
-      transition-all duration-200 hover:bg-white/[0.08] hover:border-white/50;
+    @apply inline-block bg-transparent text-near-black font-sans text-[0.8rem]
+      tracking-[0.15em] uppercase px-10 py-4 cursor-pointer border border-near-black
+      transition-all duration-300 hover:bg-near-black hover:text-ivory;
   }
 
-  .btn-warm {
-    @apply inline-block bg-warm-sand text-charcoal-warm font-sans text-[0.94rem] font-medium
-      px-5 py-2.5 rounded-comfortable cursor-pointer transition-all duration-200;
-    box-shadow: #e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px;
+  .btn-terracotta {
+    @apply inline-block bg-terracotta text-ivory font-sans text-[0.8rem] font-medium
+      tracking-[0.15em] uppercase px-10 py-4 cursor-pointer
+      transition-all duration-300 hover:bg-terracotta-dark;
   }
 
   .section-eyebrow {
-    @apply font-sans text-xs font-medium tracking-[0.3em] uppercase text-gold mb-3;
+    @apply font-sans text-[0.7rem] font-medium tracking-[0.3em] uppercase text-stone-gray mb-4;
   }
 
   .section-title {
-    @apply font-serif text-[2.8rem] font-medium leading-[1.2] text-near-black mb-4;
+    @apply font-serif text-[2.8rem] lg:text-[3.2rem] font-medium leading-[1.1] text-near-black mb-5;
   }
 
   .section-desc {
-    @apply font-sans text-[1.05rem] leading-relaxed text-olive-gray max-w-xl;
+    @apply font-sans text-[1rem] leading-[1.7] text-olive-gray max-w-xl;
   }
 }

@@ -1,36 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Shop Tops", href: "#collections" },
-  { label: "All Styles", href: "#products" },
-  { label: "Sun Protection", href: "#feature" },
-  { label: "Our Story", href: "#about" },
+  { label: "Shop", href: "#collections" },
+  { label: "Collections", href: "#products" },
+  { label: "About", href: "#feature" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 bg-parchment/95 backdrop-blur-md border-b border-border-cream">
-      <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-parchment/95 backdrop-blur-md border-b border-border-cream"
+          : "bg-transparent border-b border-white/10"
+      }`}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 py-5 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
-          className="font-serif text-[1.8rem] font-medium text-near-black tracking-[0.08em] no-underline"
+          className={`font-serif text-[1.6rem] font-medium tracking-[0.12em] no-underline transition-colors duration-500 ${
+            scrolled ? "text-near-black" : "text-ivory"
+          }`}
         >
           Luxe Sun
         </Link>
 
         {/* Desktop nav */}
-        <ul className="hidden md:flex gap-8 items-center list-none">
+        <ul className="hidden md:flex gap-10 items-center list-none absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-sans text-[0.94rem] text-olive-gray no-underline transition-colors hover:text-near-black"
+                className={`font-sans text-[0.78rem] tracking-[0.12em] uppercase no-underline transition-colors duration-500 hover:opacity-70 ${
+                  scrolled ? "text-olive-gray hover:text-near-black" : "text-ivory/80 hover:text-ivory"
+                }`}
               >
                 {link.label}
               </a>
@@ -39,19 +58,21 @@ export default function Navbar() {
         </ul>
 
         {/* Icons + hamburger */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           {/* Search */}
           <button
             aria-label="Search"
-            className="text-olive-gray hover:text-near-black transition-colors bg-transparent border-none cursor-pointer"
+            className={`transition-colors duration-500 bg-transparent border-none cursor-pointer ${
+              scrolled ? "text-olive-gray hover:text-near-black" : "text-ivory/80 hover:text-ivory"
+            }`}
           >
             <svg
-              width="20"
-              height="20"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.8"
+              strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -63,15 +84,17 @@ export default function Navbar() {
           {/* Account */}
           <button
             aria-label="Account"
-            className="text-olive-gray hover:text-near-black transition-colors bg-transparent border-none cursor-pointer"
+            className={`hidden sm:block transition-colors duration-500 bg-transparent border-none cursor-pointer ${
+              scrolled ? "text-olive-gray hover:text-near-black" : "text-ivory/80 hover:text-ivory"
+            }`}
           >
             <svg
-              width="20"
-              height="20"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.8"
+              strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -83,15 +106,17 @@ export default function Navbar() {
           {/* Cart */}
           <button
             aria-label="Cart"
-            className="relative text-olive-gray hover:text-near-black transition-colors bg-transparent border-none cursor-pointer"
+            className={`relative transition-colors duration-500 bg-transparent border-none cursor-pointer ${
+              scrolled ? "text-olive-gray hover:text-near-black" : "text-ivory/80 hover:text-ivory"
+            }`}
           >
             <svg
-              width="20"
-              height="20"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.8"
+              strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -99,9 +124,6 @@ export default function Navbar() {
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
-            <span className="absolute -top-1.5 -right-1.5 bg-gold text-white text-[0.6rem] w-4 h-4 rounded-full flex items-center justify-center font-semibold">
-              0
-            </span>
           </button>
 
           {/* Hamburger (mobile) */}
@@ -111,13 +133,19 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             <span
-              className={`block w-[22px] h-[2px] bg-near-black rounded transition-transform ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
+              className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
+                scrolled ? "bg-near-black" : "bg-ivory"
+              } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
             />
             <span
-              className={`block w-[22px] h-[2px] bg-near-black rounded transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
+              className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
+                scrolled ? "bg-near-black" : "bg-ivory"
+              } ${mobileOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`block w-[22px] h-[2px] bg-near-black rounded transition-transform ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
+              className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
+                scrolled ? "bg-near-black" : "bg-ivory"
+              } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
             />
           </button>
         </div>
@@ -130,7 +158,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="block font-sans text-base text-olive-gray no-underline hover:text-near-black"
+              className="block font-sans text-sm tracking-[0.08em] uppercase text-olive-gray no-underline hover:text-near-black"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
