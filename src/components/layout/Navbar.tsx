@@ -6,10 +6,24 @@ import Link from "next/link";
 const shopByItems = [
   { label: "Crop Tops", href: "/collections/active?filter=crop-tops" },
   { label: "Tops", href: "/collections/active?filter=tops" },
-  { label: "Sleeves", href: "/collections/active?filter=sleeves" },
   { label: "Shoulder Wraps", href: "/collections/active?filter=shoulder-wraps" },
+  { label: "Sleeves", href: "/collections/active?filter=sleeves" },
   { label: "UV Hoodies", href: "/collections/active?filter=uv-hoodies" },
   { label: "Accessories", href: "/collections/active?filter=accessories" },
+];
+
+const genderItems = [
+  { label: "Women's", href: "/collections/active?gender=womens" },
+  { label: "Men's", href: "/collections/active?gender=mens" },
+];
+
+const activityItems = [
+  { label: "Beach Volleyball", href: "/collections/active?activity=beach-volleyball" },
+  { label: "Racket Sports", href: "/collections/active?activity=racket-sports" },
+  { label: "Golf", href: "/collections/active?activity=golf" },
+  { label: "Equestrian", href: "/collections/active?activity=equestrian" },
+  { label: "Running", href: "/collections/active?activity=running" },
+  { label: "Beach", href: "/collections/active?activity=beach" },
 ];
 
 const genderItems = [

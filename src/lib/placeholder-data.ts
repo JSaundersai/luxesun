@@ -245,12 +245,12 @@ export const placeholderCategories = [
 
 export const activeSubCategories = [
   "New Arrivals",
-  "Beach",
   "Beach Volleyball",
-  "Golf",
-  "Running",
-  "Equestrian",
   "Racket Sports",
+  "Golf",
+  "Equestrian",
+  "Running",
+  "Beach",
   "Accessories",
 ];
 
