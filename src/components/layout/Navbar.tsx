@@ -6,10 +6,15 @@ import Link from "next/link";
 const shopByItems = [
   { label: "Crop Tops", href: "/collections/athletic?filter=crop-tops" },
   { label: "Tops", href: "/collections/athletic?filter=tops" },
-  { label: "Long Sleeves", href: "/collections/athletic?filter=sleeves" },
+  { label: "Sleeves", href: "/collections/athletic?filter=sleeves" },
   { label: "Shoulder Wraps", href: "/collections/athletic?filter=shoulder-wraps" },
   { label: "UV Hoodies", href: "/collections/athletic?filter=uv-hoodies" },
   { label: "Accessories", href: "/collections/athletic?filter=accessories" },
+];
+
+const genderItems = [
+  { label: "Women's", href: "/collections/athletic?gender=womens" },
+  { label: "Men's", href: "/collections/athletic?gender=mens" },
 ];
 
 const activityItems = [
@@ -38,14 +43,16 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const textColor = scrolled
+  const useDarkText = scrolled || initialScrolled || shopOpen;
+
+  const textColor = useDarkText
     ? "text-olive-gray hover:text-near-black"
     : "text-ivory/80 hover:text-ivory";
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || shopOpen
+        useDarkText
           ? "bg-parchment/95 backdrop-blur-md border-b border-border-cream"
           : "bg-transparent border-b border-white/10"
       }`}
@@ -54,7 +61,7 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
         <Link
           href="/"
           className={`font-serif text-[1.6rem] font-medium tracking-[0.12em] no-underline transition-colors duration-500 ${
-            scrolled || shopOpen ? "text-near-black" : "text-ivory"
+            useDarkText ? "text-near-black" : "text-ivory"
           }`}
         >
           Luxe Sun
@@ -83,7 +90,7 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
 
             {shopOpen && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5">
-                <div className="bg-parchment border border-border-cream shadow-whisper px-10 py-8 min-w-[380px]">
+                <div className="bg-parchment border border-border-cream shadow-whisper px-10 py-8 min-w-[480px]">
                   <div className="flex gap-12">
                     <div>
                       <div className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-stone-gray mb-4">
@@ -108,6 +115,23 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
                       </div>
                       <ul className="list-none space-y-3">
                         {activityItems.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              className="font-sans text-[0.82rem] text-near-black no-underline transition-colors duration-300 hover:text-terracotta"
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-stone-gray mb-4">
+                        For
+                      </div>
+                      <ul className="list-none space-y-3">
+                        {genderItems.map((item) => (
                           <li key={item.href}>
                             <Link
                               href={item.href}
@@ -182,17 +206,17 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
           >
             <span
               className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
-                scrolled ? "bg-near-black" : "bg-ivory"
+                useDarkText ? "bg-near-black" : "bg-ivory"
               } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
             />
             <span
               className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
-                scrolled ? "bg-near-black" : "bg-ivory"
+                useDarkText ? "bg-near-black" : "bg-ivory"
               } ${mobileOpen ? "opacity-0" : ""}`}
             />
             <span
               className={`block w-[22px] h-[2px] rounded transition-all duration-300 ${
-                scrolled ? "bg-near-black" : "bg-ivory"
+                useDarkText ? "bg-near-black" : "bg-ivory"
               } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
             />
           </button>
@@ -218,6 +242,19 @@ export default function Navbar({ initialScrolled = false }: NavbarProps) {
             Activities
           </div>
           {activityItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
+              onClick={() => setMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2 pt-3">
+            For
+          </div>
+          {genderItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
