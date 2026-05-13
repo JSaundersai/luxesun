@@ -239,7 +239,7 @@ export const placeholderCategories = [
     subtitle: "Casual, fashion-forward pieces for everyday wear",
     count: 10,
     gradient: "from-[#c2a060] to-[#a08040]",
-    image: "/placeholders/cat-studio.jpg",
+    image: "/placeholders/Leisure_photo.png",
   },
 ];
 
