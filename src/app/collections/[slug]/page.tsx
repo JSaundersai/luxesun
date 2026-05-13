@@ -32,17 +32,6 @@ const subCategoryImages: Record<string, string> = {
   "Daily Wear": "/placeholders/product-halter.jpg",
 };
 
-const subCategoryImages: Record<string, string> = {
-  "New Arrivals": "/placeholders/product-crop-top.jpg",
-  "Beach Volleyball": "/placeholders/product-rashguard.jpg",
-  "Running": "/placeholders/product-longsleeve.jpg",
-  "Racket Sports": "/placeholders/product-tank.jpg",
-  "Cycling": "/placeholders/product-hoodie.jpg",
-  "Equestrian": "/placeholders/product-jacket.jpg",
-  "Accessories": "/placeholders/product-wrap.jpg",
-  "Daily Wear": "/placeholders/product-halter.jpg",
-};
-
 export default function CollectionPage() {
   const params = useParams();
   const slug = params.slug as string;
