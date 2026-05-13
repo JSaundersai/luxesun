@@ -43,7 +43,7 @@ export default function CollectionPage() {
   if (!collection) {
     return (
       <>
-        <Navbar />
+        <Navbar initialScrolled />
         <main className="pt-32 px-6 min-h-screen">
           <div className="max-w-[1400px] mx-auto text-center">
             <h1 className="font-serif text-4xl mb-4">Collection Not Found</h1>
@@ -71,9 +71,9 @@ export default function CollectionPage() {
   };
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-24 md:pt-32">
+      <>
+        <Navbar initialScrolled />
+        <main className="pt-24 md:pt-32">
         {/* Collection Header with inline subcategories */}
         <section className="px-6 pb-4">
           <div className="max-w-[1400px] mx-auto">
