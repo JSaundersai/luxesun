@@ -6,6 +6,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import { placeholderProducts, activeSubCategories, leisureSubCategories } from "@/lib/placeholder-data";
+import FadeIn from "@/components/animations/FadeIn";
+import { useState } from "react";
 
 const collectionData: Record<string, { title: string; description: string; subCategories: string[] }> = {
   active: {
