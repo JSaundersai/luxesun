@@ -13,11 +13,10 @@ export interface PlaceholderProduct {
 }
 
 export const placeholderProducts: PlaceholderProduct[] = [
-  // Athletic — Beach Volleyball
   {
     id: "1",
     name: "Soleil UPF 50+ Crop Top",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 78,
     badge: "New",
@@ -27,7 +26,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "2",
     name: "Golden Hour Long Sleeve",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Beach Volleyball",
     price: 98,
     badge: "Bestseller",
@@ -37,7 +36,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "3",
     name: "Dusk Ribbed Tank",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 58,
     colors: ["#e8e0d0", "#4a4a44", "#ccb04a"],
@@ -46,7 +45,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "4",
     name: "Sunrise Zip-Through Jacket",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 118,
     originalPrice: 148,
@@ -57,7 +56,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "5",
     name: "Horizon Wrap Top",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 72,
     colors: ["#f5f4ed", "#2d2d2d"],
@@ -66,7 +65,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "6",
     name: "Tide Rash Guard",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Beach Volleyball",
     price: 108,
     badge: "New",
@@ -76,7 +75,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "7",
     name: "Cove Halter Top",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 64,
     colors: ["#b08870", "#2d2d2d", "#e8e0d0"],
@@ -85,18 +84,17 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "8",
     name: "Reef Hoodie UPF 50+",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Running",
     price: 128,
     badge: "Bestseller",
     colors: ["#ccb04a", "#141413", "#f5f4ed"],
     image: "/placeholders/product-hoodie.jpg",
   },
-  // Athletic — Running
   {
     id: "9",
     name: "Stride Performance Tee",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Running",
     price: 68,
     badge: "New",
@@ -106,17 +104,16 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "10",
     name: "Pace Setter Long Sleeve",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Running",
     price: 88,
     colors: ["#e8e0d0", "#4a4a44", "#ccb04a"],
     image: "/placeholders/product-longsleeve.jpg",
   },
-  // Athletic — Racket Sports
   {
     id: "11",
     name: "Ace Polo UV Top",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Racket Sports",
     price: 84,
     colors: ["#ccb04a", "#141413"],
@@ -125,18 +122,17 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "12",
     name: "Court Side Tank",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Racket Sports",
     price: 62,
     badge: "New",
     colors: ["#b08870", "#2d2d2d", "#e8e0d0"],
     image: "/placeholders/product-tank.jpg",
   },
-  // Athletic — Cycling
   {
     id: "13",
     name: "Peloton Zip Jersey",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Cycling",
     price: 112,
     badge: "New",
@@ -146,17 +142,16 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "14",
     name: "Summit Base Layer",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Cycling",
     price: 76,
     colors: ["#f5f4ed", "#2d2d2d"],
     image: "/placeholders/product-longsleeve.jpg",
   },
-  // Athletic — Equestrian
   {
     id: "15",
     name: "Canter Show Shirt",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Equestrian",
     price: 134,
     colors: ["#f5f0e0", "#141413", "#8a9a7a"],
@@ -165,18 +160,17 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "16",
     name: "Gallop Half-Zip",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Equestrian",
     price: 118,
     badge: "Bestseller",
     colors: ["#e8e0d0", "#4a4a44", "#ccb04a"],
     image: "/placeholders/product-hoodie.jpg",
   },
-  // Athletic — Accessories
   {
     id: "17",
     name: "UV Shield Visor",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Accessories",
     price: 42,
     colors: ["#141413", "#ccb04a"],
@@ -185,18 +179,17 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "18",
     name: "Sport Cooling Towel",
-    category: "Athletic",
+    category: "Active",
     subCategory: "Accessories",
     price: 28,
     badge: "New",
     colors: ["#8a9a7a", "#f5f0e0"],
     image: "/placeholders/product-wrap.jpg",
   },
-  // Studio — Daily Wear
   {
     id: "19",
     name: "Lounge Ribbed Tee",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 56,
     colors: ["#e8e0d0", "#4a4a44", "#ccb04a"],
@@ -205,18 +198,17 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "20",
     name: "Breeze Relaxed Shirt",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Daily Wear",
     price: 82,
     badge: "New",
     colors: ["#b08870", "#2d2d2d", "#e8e0d0"],
     image: "/placeholders/product-wrap.jpg",
   },
-  // Studio — Accessories
   {
     id: "21",
     name: "Silk Hair Scarf",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Accessories",
     price: 48,
     colors: ["#ccb04a", "#141413", "#f5f0e0"],
@@ -225,7 +217,7 @@ export const placeholderProducts: PlaceholderProduct[] = [
   {
     id: "22",
     name: "Tote Bag Canvas",
-    category: "Studio",
+    category: "Leisure",
     subCategory: "Accessories",
     price: 68,
     badge: "New",
@@ -236,32 +228,33 @@ export const placeholderProducts: PlaceholderProduct[] = [
 
 export const placeholderCategories = [
   {
-    title: "Athletic",
-    subtitle: "Performance-driven sun protection for the active athlete",
+    title: "Active",
+    subtitle: "Performance-driven sun protection for every activity",
     count: 12,
     gradient: "from-[#8a9a7a] to-[#6a7a5a]",
     image: "/placeholders/cat-athletic.jpg",
   },
   {
-    title: "Studio",
+    title: "Leisure",
     subtitle: "Casual, fashion-forward pieces for everyday wear",
-    count: 16,
+    count: 10,
     gradient: "from-[#c2a060] to-[#a08040]",
     image: "/placeholders/cat-studio.jpg",
   },
 ];
 
-export const athleticSubCategories = [
+export const activeSubCategories = [
   "New Arrivals",
+  "Beach",
   "Beach Volleyball",
+  "Golf",
   "Running",
-  "Racket Sports",
-  "Cycling",
   "Equestrian",
+  "Racket Sports",
   "Accessories",
 ];
 
-export const studioSubCategories = [
+export const leisureSubCategories = [
   "New Arrivals",
   "Daily Wear",
   "Accessories",

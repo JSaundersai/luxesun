@@ -5,21 +5,31 @@ import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
-import { placeholderProducts, athleticSubCategories, studioSubCategories } from "@/lib/placeholder-data";
-import FadeIn from "@/components/animations/FadeIn";
-import { useState } from "react";
+import { placeholderProducts, activeSubCategories, leisureSubCategories } from "@/lib/placeholder-data";
 
 const collectionData: Record<string, { title: string; description: string; subCategories: string[] }> = {
-  athletic: {
-    title: "Athletic",
-    description: "Performance-driven sun protection for the active athlete. Engineered for high-intensity movement.",
-    subCategories: athleticSubCategories,
+  active: {
+    title: "Active",
+    description: "Performance-driven sun protection for every activity. Engineered for high-intensity movement.",
+    subCategories: activeSubCategories,
   },
-  studio: {
-    title: "Studio",
-    description: "Casual, fashion-forward pieces for everyday wear. From studio to street with effortless style.",
-    subCategories: studioSubCategories,
+  leisure: {
+    title: "Leisure",
+    description: "Casual, fashion-forward pieces for everyday wear. Effortless style from morning to sunset.",
+    subCategories: leisureSubCategories,
   },
+};
+
+const subCategoryImages: Record<string, string> = {
+  "New Arrivals": "/placeholders/product-crop-top.jpg",
+  "Beach": "/placeholders/product-rashguard.jpg",
+  "Beach Volleyball": "/placeholders/product-rashguard.jpg",
+  "Golf": "/placeholders/product-hoodie.jpg",
+  "Running": "/placeholders/product-longsleeve.jpg",
+  "Racket Sports": "/placeholders/product-tank.jpg",
+  "Equestrian": "/placeholders/product-jacket.jpg",
+  "Accessories": "/placeholders/product-wrap.jpg",
+  "Daily Wear": "/placeholders/product-halter.jpg",
 };
 
 const subCategoryImages: Record<string, string> = {

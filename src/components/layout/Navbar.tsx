@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const shopByItems = [
-  { label: "Crop Tops", href: "/collections/athletic?filter=crop-tops" },
-  { label: "Tops", href: "/collections/athletic?filter=tops" },
-  { label: "Sleeves", href: "/collections/athletic?filter=sleeves" },
-  { label: "Shoulder Wraps", href: "/collections/athletic?filter=shoulder-wraps" },
-  { label: "UV Hoodies", href: "/collections/athletic?filter=uv-hoodies" },
-  { label: "Accessories", href: "/collections/athletic?filter=accessories" },
+  { label: "Crop Tops", href: "/collections/active?filter=crop-tops" },
+  { label: "Tops", href: "/collections/active?filter=tops" },
+  { label: "Sleeves", href: "/collections/active?filter=sleeves" },
+  { label: "Shoulder Wraps", href: "/collections/active?filter=shoulder-wraps" },
+  { label: "UV Hoodies", href: "/collections/active?filter=uv-hoodies" },
+  { label: "Accessories", href: "/collections/active?filter=accessories" },
 ];
 
 const genderItems = [
@@ -18,11 +18,12 @@ const genderItems = [
 ];
 
 const activityItems = [
-  { label: "Golf", href: "/collections/athletic?activity=golf" },
-  { label: "Beach Volleyball", href: "/collections/athletic?activity=beach-volleyball" },
-  { label: "Running", href: "/collections/athletic?activity=running" },
-  { label: "Equestrian", href: "/collections/athletic?activity=equestrian" },
-  { label: "Racket Sports", href: "/collections/athletic?activity=racket-sports" },
+  { label: "Beach", href: "/collections/active?activity=beach" },
+  { label: "Beach Volleyball", href: "/collections/active?activity=beach-volleyball" },
+  { label: "Golf", href: "/collections/active?activity=golf" },
+  { label: "Running", href: "/collections/active?activity=running" },
+  { label: "Equestrian", href: "/collections/active?activity=equestrian" },
+  { label: "Racket Sports", href: "/collections/active?activity=racket-sports" },
 ];
 
 interface NavbarProps {
