@@ -30,3 +30,4 @@ next-env.d.ts
 # testing artifacts
 .playwright-mcp/
 *.png
+!public/placeholders/Leisure_photo.png
