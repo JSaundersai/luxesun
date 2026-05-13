@@ -26,20 +26,6 @@ const activityItems = [
   { label: "Beach", href: "/collections/active?activity=beach" },
 ];
 
-const genderItems = [
-  { label: "Women's", href: "/collections/athletic?gender=womens" },
-  { label: "Men's", href: "/collections/athletic?gender=mens" },
-];
-
-const activityItems = [
-  { label: "Beach", href: "/collections/active?activity=beach" },
-  { label: "Beach Volleyball", href: "/collections/active?activity=beach-volleyball" },
-  { label: "Golf", href: "/collections/active?activity=golf" },
-  { label: "Running", href: "/collections/active?activity=running" },
-  { label: "Equestrian", href: "/collections/active?activity=equestrian" },
-  { label: "Racket Sports", href: "/collections/active?activity=racket-sports" },
-];
-
 interface NavbarProps {
   initialScrolled?: boolean;
 }
