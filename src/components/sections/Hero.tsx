@@ -9,8 +9,8 @@ export default function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/placeholders/hero.jpg"
-          alt="Woman in sun protection athletic top outdoors"
+          src="/placeholders/hero-sun.jpg"
+          alt="Woman in UPF 50+ sun-protective activewear on a beach volleyball court at golden hour"
           fill
           className="object-cover"
           priority
@@ -26,29 +26,24 @@ export default function Hero() {
         <FadeIn>
           <div className="max-w-[650px]">
             <p className="font-sans text-[0.7rem] font-medium tracking-[0.35em] uppercase text-warm-silver/80 mb-6">
-              UPF 50+ Sun Protection
+              Certified UPF 50+ Sun Protection
             </p>
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-[5rem] font-medium leading-[1.0] text-ivory mb-8">
-              Studio-to-Street,
+              Play Longer.
               <br />
-              Sun-Protected
+              Stay Covered.
             </h1>
-            <p className="font-sans text-[1rem] font-light leading-[1.7] text-warm-silver/80 mb-12 max-w-[420px]">
-              Athletic tops engineered with UPF 50+ protection and premium
-              performance fabrics. Built for the outdoor rotation.
+            <p className="font-sans text-[1rem] font-light leading-[1.7] text-warm-silver/80 mb-12 max-w-[440px]">
+              Sun-protective sleeves, crops, shirts and base layers engineered
+              for beach volleyball, running and every sun sport. UPF 50+
+              coverage that moves the way you do.
             </p>
             <div className="flex gap-5 flex-wrap">
               <a
                 href="#products"
                 className="inline-block bg-ivory text-near-black font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-4 cursor-pointer transition-all duration-300 hover:bg-warm-sand"
               >
-                Shop Now
-              </a>
-              <a
-                href="#feature"
-                className="inline-block bg-transparent text-ivory font-sans text-[0.8rem] tracking-[0.15em] uppercase px-10 py-4 cursor-pointer border border-ivory/30 transition-all duration-300 hover:bg-ivory/10 hover:border-ivory/50"
-              >
-                Explore
+                Shop the Range
               </a>
             </div>
           </div>

@@ -25,14 +25,15 @@ export default function EditorialBanner() {
         <FadeIn>
           <div className="max-w-[550px]">
             <p className="font-sans text-[0.7rem] font-medium tracking-[0.35em] uppercase text-warm-silver/70 mb-6">
-              The Collection
+              Built For The Sun
             </p>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] font-medium leading-[1.05] text-ivory mb-6">
-              A Layered Uniform of Elevated Staples
+              Coverage That Keeps Up With Your Sport
             </h2>
             <p className="font-sans text-[1rem] font-light leading-[1.7] text-warm-silver/80 mb-10 max-w-[440px]">
-              Built for the cold-weather rotation. From sunrise yoga to sunset runs — 
-              find your perfect fit for every movement.
+              From the first serve to the final sprint — a sun-protective kit of
+              sleeves, crops, shirts and base layers engineered to keep you cool,
+              covered and moving all day.
             </p>
             <a
               href="#products"

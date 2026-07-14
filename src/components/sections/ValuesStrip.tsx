@@ -1,19 +1,19 @@
 const values = [
   {
-    title: "UPF 50+ Rated",
-    desc: "Lab-tested to block 98% of UV rays",
-  },
-  {
-    title: "Sustainable Fabrics",
-    desc: "Recycled nylon \u0026 organic blends",
+    title: "Certified UPF 50+",
+    desc: "Independently tested to block 98% of UV rays",
   },
   {
     title: "Cooling Tech",
-    desc: "Moisture-wicking performance",
+    desc: "Stays up to 2\u00b0C cooler so you play longer",
   },
   {
-    title: "Women-Owned",
-    desc: "Designed by women, for women",
+    title: "Moisture-Wicking",
+    desc: "Lightweight, breathable, quick-drying fabric",
+  },
+  {
+    title: "Built For Sun Sports",
+    desc: "Beach volleyball, running \u0026 everything outdoors",
   },
 ];
 

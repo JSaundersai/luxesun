@@ -13,7 +13,7 @@ export default function Categories() {
           {placeholderCategories.map((cat, i) => (
             <FadeIn key={cat.title} delay={i * 150}>
               <Link
-                href={`/collections/${cat.title.toLowerCase()}`}
+                href={`/collections/${cat.slug}`}
                 className="relative aspect-[16/9] md:aspect-[2/1] overflow-hidden bg-dark-surface group block w-full"
               >
                 <Image

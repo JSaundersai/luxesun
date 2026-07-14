@@ -35,15 +35,16 @@ export default function FeatureBanner() {
               Fibre
             </h2>
             <p className="font-sans text-[1rem] leading-[1.8] text-warm-silver/70 max-w-md mb-10">
-              Every Luxe Sun top is built with tightly woven, lab-tested UPF 50+
-              fabrics that block 98% of harmful UV rays. Combined with 4-way
-              stretch, moisture-wicking technology, and cooling ventilation zones.
+              Every Luxe Sun piece is built with tightly woven, independently
+              certified UPF 50+ fabric that blocks 98% of harmful UV rays.
+              Combined with four-way stretch, moisture-wicking cooling zones and
+              flatlock seams for chafe-free, all-day wear.
             </p>
             <a
               href="#products"
               className="inline-block bg-ivory text-near-black font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-4 cursor-pointer transition-all duration-300 hover:bg-warm-sand"
             >
-              Shop All Tops
+              Shop the Range
             </a>
           </div>
         </FadeIn>

@@ -1,8 +1,33 @@
 "use client";
 
+import { useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
+import { useEmails } from "@/context/EmailsProvider";
+
+const SUBSCRIBERS_KEY = "luxe_subscribers_v1";
 
 export default function Newsletter() {
+  const { logEmail } = useEmails();
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+
+  const subscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = email.trim().toLowerCase();
+    if (!value) return;
+    try {
+      const list: string[] = JSON.parse(localStorage.getItem(SUBSCRIBERS_KEY) || "[]");
+      if (!list.includes(value)) {
+        localStorage.setItem(SUBSCRIBERS_KEY, JSON.stringify([...list, value]));
+      }
+    } catch {
+      /* ignore */
+    }
+    logEmail("newsletter_welcome", value, { email: value });
+    setDone(true);
+    setEmail("");
+  };
+
   return (
     <section id="about" className="py-28 px-6 bg-ivory border-t border-border-cream">
       <FadeIn>
@@ -15,22 +40,28 @@ export default function Newsletter() {
             Be the first to know about new drops, exclusive offers, and
             sun-soaked inspiration.
           </p>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col sm:flex-row gap-3"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-5 py-3.5 border border-border-warm bg-white font-sans text-[0.88rem] text-near-black outline-none transition-all duration-300 placeholder:text-stone-gray focus:border-near-black"
-            />
-            <button
-              type="submit"
-              className="inline-block bg-near-black text-ivory font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-3.5 cursor-pointer transition-all duration-300 hover:bg-dark-surface"
-            >
-              Subscribe
-            </button>
-          </form>
+          {done ? (
+            <p className="font-sans text-[0.95rem] text-terracotta">
+              You&apos;re on the list ☀️ Check your inbox for 10% off your first order.
+            </p>
+          ) : (
+            <form onSubmit={subscribe} className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="flex-1 px-5 py-3.5 border border-border-warm bg-white font-sans text-[0.88rem] text-near-black outline-none transition-all duration-300 placeholder:text-stone-gray focus:border-near-black"
+              />
+              <button
+                type="submit"
+                className="inline-block bg-near-black text-ivory font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-3.5 cursor-pointer transition-all duration-300 hover:bg-dark-surface"
+              >
+                Subscribe
+              </button>
+            </form>
+          )}
         </div>
       </FadeIn>
     </section>

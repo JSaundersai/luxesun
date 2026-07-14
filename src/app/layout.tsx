@@ -1,10 +1,30 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "Luxe Sun — Women's Activewear",
+  metadataBase: new URL("https://luxesun.com.au"),
+  title: {
+    default: "Luxe Sun — UPF 50+ Sun-Protective Activewear",
+    template: "%s — Luxe Sun",
+  },
   description:
-    "Premium women's activewear designed for the sun-kissed lifestyle. Performance fabrics meet effortless style.",
+    "Certified UPF 50+ sun-protective activewear — sleeves, crop tops, shirts and base layers built for beach volleyball, running and every sun sport.",
+  keywords: ["UPF 50", "sun protective clothing", "activewear", "beach volleyball", "sun shirt", "Australia"],
+  openGraph: {
+    title: "Luxe Sun — UPF 50+ Sun-Protective Activewear",
+    description:
+      "Certified UPF 50+ activewear built for beach volleyball, running and every sun sport. Designed and tested in Australia.",
+    url: "https://luxesun.com.au",
+    siteName: "Luxe Sun",
+    locale: "en_AU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Luxe Sun — UPF 50+ Sun-Protective Activewear",
+    description: "Certified UPF 50+ activewear for every sun sport.",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +46,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
