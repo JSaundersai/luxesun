@@ -26,6 +26,12 @@ const shopForItems = [
   { label: "Sale", href: "/collections/sale" },
 ];
 
+const mensItems = [
+  { label: "Half-Zip Sun Shirt", href: "/products/summit-men-s-half-zip-sun-shirt" },
+  { label: "UV Long-Sleeve", href: "/products/meridian-men-s-uv-long-sleeve" },
+  { label: "Shop All Men", href: "/collections/mens" },
+];
+
 const collectionsItems = [
   { label: "New Arrivals", href: "/collections/new-arrivals" },
   { label: "Best Sellers", href: "/collections/bestsellers" },
@@ -260,14 +266,15 @@ export default function Navbar() {
         >
           <div className="max-w-[1400px] mx-auto px-6 py-10 grid grid-cols-12 gap-10 min-h-[48vh]">
             {/* Category columns (left) */}
-            <div className="col-span-5 grid grid-cols-3 gap-8 content-start">
+            <div className="col-span-6 grid grid-cols-4 gap-8 content-start">
               <MenuColumn heading="Shop By" items={shopByItems} onNavigate={closeMenus} />
+              <MenuColumn heading="Men" items={mensItems} onNavigate={closeMenus} />
               <MenuColumn heading="Activities" items={activityItems} onNavigate={closeMenus} />
               <MenuColumn heading="Featured" items={shopForItems} onNavigate={closeMenus} />
             </div>
 
             {/* Feature tiles (right) */}
-            <div className="col-span-7 grid grid-cols-2 gap-4">
+            <div className="col-span-6 grid grid-cols-2 gap-4">
               {featureTiles.map((tile) => (
                 <Link
                   key={tile.href}
@@ -333,6 +340,19 @@ export default function Navbar() {
             Featured
           </div>
           {shopForItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
+              onClick={() => setMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2 pt-3">
+            Men
+          </div>
+          {mensItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}

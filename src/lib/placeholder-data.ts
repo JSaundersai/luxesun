@@ -23,6 +23,8 @@ export interface PlaceholderProduct {
   category: string;
   /** Sport / use-case — shown under the product name and used for sport filters. */
   subCategory: string;
+  /** Target audience — drives the Women's / Men's split. Defaults to "women". */
+  gender?: "women" | "men";
   price: number;
   originalPrice?: number;
   /** Unit cost of goods sold — used for margin/profit analytics. */
@@ -210,6 +212,55 @@ export const placeholderProducts: PlaceholderProduct[] = [
     ],
     modelInfo: "Model is 176cm and wears a size S.",
   },
+  {
+    id: "7",
+    name: "Summit Men's Half-Zip Sun Shirt",
+    category: "Shirts",
+    subCategory: "Running",
+    gender: "men",
+    price: 108,
+    cost: 45,
+    badge: "New",
+    colors: [SAND, BLACK, OLIVE],
+    image: "/placeholders/products/mens-summit-front.jpg",
+    backImage: "/placeholders/products/mens-summit-back.jpg",
+    sku: "LS-MSU",
+    stock: { XS: 6, S: 14, M: 20, L: 16, XL: 9 },
+    fabric: "90% recycled polyester, 10% elastane — featherweight 140gsm jersey",
+    fit: "Streamlined athletic fit with a quarter-zip stand collar. True to size.",
+    care: DEFAULT_CARE,
+    features: [
+      "Certified UPF 50+ — blocks 98% of UVA/UVB rays",
+      "Quarter-zip stand collar for extra neck protection",
+      "Thumbholes for full hand coverage on long runs",
+      "Sweat-wicking, quick-dry jersey",
+    ],
+    modelInfo: "Model is 185cm and wears a size M.",
+  },
+  {
+    id: "8",
+    name: "Meridian Men's UV Long-Sleeve",
+    category: "Shirts",
+    subCategory: "Tennis & Golf",
+    gender: "men",
+    price: 96,
+    cost: 39,
+    colors: [CHALK, BLACK, SAND],
+    image: "/placeholders/products/mens-ace-front.jpg",
+    backImage: "/placeholders/products/mens-ace-back.jpg",
+    sku: "LS-MME",
+    stock: { XS: 5, S: 12, M: 18, L: 14, XL: 8 },
+    fabric: "88% recycled polyester, 12% elastane — 160gsm cooling piqué",
+    fit: "Relaxed athletic fit with a longer drop hem. Size up for extra room.",
+    care: DEFAULT_CARE,
+    features: [
+      "Certified UPF 50+ all-day sun protection",
+      "Cooling piqué knit with mesh underarm vents",
+      "Longer drop hem stays tucked through the swing",
+      "Anti-odour finish",
+    ],
+    modelInfo: "Model is 183cm and wears a size M.",
+  },
 ];
 
 /** Product types — the primary way to shop the range. */
@@ -244,6 +295,7 @@ export function normalizeProduct(p: PlaceholderProduct): PlaceholderProduct {
     sku: p.sku ?? `LS-${p.id}`,
     stock,
     care: p.care ?? DEFAULT_CARE,
+    gender: p.gender ?? "women",
   };
 }
 

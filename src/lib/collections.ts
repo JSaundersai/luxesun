@@ -34,7 +34,7 @@ export const collections: CollectionDef[] = [
       "Breathable, moisture-wicking UPF 50+ shirts and crops that keep you cool mile after mile.",
     image: "/placeholders/products/horizon-shirt-front.jpg",
     subCategories: [...productTypes],
-    filter: (p) => p.subCategory === "Running",
+    filter: (p) => p.subCategory === "Running" && p.gender !== "men",
   },
   {
     slug: "tennis-and-golf",
@@ -42,7 +42,7 @@ export const collections: CollectionDef[] = [
     description:
       "Sun-smart sport shirts and layers with the coverage to last a full round or match.",
     image: "/placeholders/products/serve-shirt-front.jpg",
-    filter: (p) => p.subCategory === "Tennis & Golf",
+    filter: (p) => p.subCategory === "Tennis & Golf" && p.gender !== "men",
   },
   // Product types
   {
@@ -64,7 +64,7 @@ export const collections: CollectionDef[] = [
     title: "Shirts",
     description: "Lightweight sun shirts and half-zips built to breathe under a relentless sun.",
     image: "/placeholders/products/horizon-shirt-front.jpg",
-    filter: (p) => p.category === "Shirts",
+    filter: (p) => p.category === "Shirts" && p.gender !== "men",
   },
   {
     slug: "base-layers",
@@ -79,7 +79,7 @@ export const collections: CollectionDef[] = [
     title: "New Arrivals",
     description: "The latest UPF 50+ drops, fresh off the line.",
     image: "/placeholders/products/rally-crop-front.jpg",
-    filter: (p) => p.badge === "New",
+    filter: (p) => p.badge === "New" && p.gender !== "men",
   },
   {
     slug: "bestsellers",
@@ -94,6 +94,15 @@ export const collections: CollectionDef[] = [
     description: "Limited-time markdowns on select sun-protective styles.",
     image: "/placeholders/products/serve-shirt-front.jpg",
     filter: (p) => p.badge === "Sale",
+  },
+  // Men
+  {
+    slug: "mens",
+    title: "Men",
+    description:
+      "UPF 50+ sun shirts engineered for men — built to breathe through every sun sport.",
+    image: "/placeholders/products/mens-summit-front.jpg",
+    filter: (p) => p.gender === "men",
   },
 ];
 
