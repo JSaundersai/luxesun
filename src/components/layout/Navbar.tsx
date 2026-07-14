@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
@@ -104,6 +104,19 @@ export default function Navbar() {
     setCollectionsOpen(false);
   };
 
+  // Hover-intent so the full-width panel doesn't flicker shut when the pointer
+  // travels from the "Shop" trigger down into the panel.
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openShop = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setCollectionsOpen(false);
+    setShopOpen(true);
+  };
+  const scheduleCloseShop = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setShopOpen(false), 140);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-parchment border-b border-border-cream">
       <div className="max-w-[1400px] mx-auto px-6 py-5 flex items-center justify-between">
@@ -121,11 +134,8 @@ export default function Navbar() {
           {/* Shop — mega menu trigger */}
           <li
             className="static"
-            onMouseEnter={() => {
-              setShopOpen(true);
-              setCollectionsOpen(false);
-            }}
-            onMouseLeave={() => setShopOpen(false)}
+            onMouseEnter={openShop}
+            onMouseLeave={scheduleCloseShop}
           >
             <button
               className="font-sans text-[0.78rem] tracking-[0.12em] uppercase bg-transparent border-none cursor-pointer flex items-center gap-1.5 text-olive-gray hover:text-near-black transition-colors duration-200"
@@ -140,54 +150,6 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-
-            {/* Mega menu — ~half screen, white */}
-            {shopOpen && (
-              <div className="absolute left-0 right-0 top-full pt-5 flex justify-start">
-                <div
-                  className="bg-white border border-border-cream shadow-whisper flex overflow-hidden"
-                  style={{ width: "min(50vw, 900px)", minWidth: 720 }}
-                >
-                  {/* Category columns */}
-                  <div className="flex-1 grid grid-cols-3 gap-10 px-10 py-9">
-                    <MenuColumn heading="Shop By" items={shopByItems} onNavigate={closeMenus} />
-                    <MenuColumn heading="Activities" items={activityItems} onNavigate={closeMenus} />
-                    <MenuColumn heading="Featured" items={shopForItems} onNavigate={closeMenus} />
-                  </div>
-
-                  {/* Feature tiles */}
-                  <div className="w-[40%] min-w-[260px] grid grid-cols-2 gap-3 items-stretch bg-parchment/60 p-4 border-l border-border-cream">
-                    {featureTiles.map((tile) => (
-                      <Link
-                        key={tile.href}
-                        href={tile.href}
-                        onClick={closeMenus}
-                        className="group relative block h-full overflow-hidden no-underline"
-                      >
-                        <div className="relative h-full min-h-[300px] w-full overflow-hidden bg-warm-sand">
-                          <Image
-                            src={tile.image}
-                            alt={tile.title}
-                            fill
-                            sizes="(max-width: 1024px) 30vw, 220px"
-                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-near-black/55 via-transparent to-transparent" />
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                          <span className="block font-sans text-[0.6rem] font-medium tracking-[0.2em] uppercase text-ivory/80 mb-1">
-                            {tile.eyebrow}
-                          </span>
-                          <span className="block font-serif text-[1.05rem] leading-tight text-ivory">
-                            {tile.title}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
           </li>
 
           {/* Collections — small dropdown */}
@@ -288,6 +250,55 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* Shop mega menu — full-width, ~half screen */}
+      {shopOpen && (
+        <div
+          className="hidden md:block absolute left-0 right-0 top-full bg-white border-t border-b border-border-cream shadow-whisper"
+          onMouseEnter={openShop}
+          onMouseLeave={scheduleCloseShop}
+        >
+          <div className="max-w-[1400px] mx-auto px-6 py-10 grid grid-cols-12 gap-10 min-h-[48vh]">
+            {/* Category columns (left) */}
+            <div className="col-span-5 grid grid-cols-3 gap-8 content-start">
+              <MenuColumn heading="Shop By" items={shopByItems} onNavigate={closeMenus} />
+              <MenuColumn heading="Activities" items={activityItems} onNavigate={closeMenus} />
+              <MenuColumn heading="Featured" items={shopForItems} onNavigate={closeMenus} />
+            </div>
+
+            {/* Feature tiles (right) */}
+            <div className="col-span-7 grid grid-cols-2 gap-4">
+              {featureTiles.map((tile) => (
+                <Link
+                  key={tile.href}
+                  href={tile.href}
+                  onClick={closeMenus}
+                  className="group relative block h-full overflow-hidden no-underline"
+                >
+                  <div className="relative h-full min-h-[40vh] w-full overflow-hidden bg-warm-sand">
+                    <Image
+                      src={tile.image}
+                      alt={tile.title}
+                      fill
+                      sizes="(max-width: 1024px) 40vw, 40vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-near-black/55 via-transparent to-transparent" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <span className="block font-sans text-[0.62rem] font-medium tracking-[0.2em] uppercase text-ivory/80 mb-1.5">
+                      {tile.eyebrow}
+                    </span>
+                    <span className="block font-serif text-[1.5rem] leading-tight text-ivory">
+                      {tile.title}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mobile menu */}
       {mobileOpen && (
