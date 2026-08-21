@@ -19,19 +19,19 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-near-black text-ivory font-sans text-[0.8rem] font-medium
+    @apply inline-block rounded-full bg-near-black text-ivory font-sans text-[0.8rem] font-medium
       tracking-[0.15em] uppercase px-10 py-4 cursor-pointer
       transition-all duration-300 hover:bg-dark-surface;
   }
 
   .btn-secondary {
-    @apply inline-block bg-transparent text-near-black font-sans text-[0.8rem]
+    @apply inline-block rounded-full bg-transparent text-near-black font-sans text-[0.8rem]
       tracking-[0.15em] uppercase px-10 py-4 cursor-pointer border border-near-black
       transition-all duration-300 hover:bg-near-black hover:text-ivory;
   }
 
   .btn-terracotta {
-    @apply inline-block bg-terracotta text-ivory font-sans text-[0.8rem] font-medium
+    @apply inline-block rounded-full bg-terracotta text-ivory font-sans text-[0.8rem] font-medium
       tracking-[0.15em] uppercase px-10 py-4 cursor-pointer
       transition-all duration-300 hover:bg-terracotta-dark;
   }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
 import { useAnalytics } from "@/context/AnalyticsProvider";
 
@@ -30,6 +31,21 @@ const collectionMenuItems = [
   { label: "Activewear", href: "/collections/activewear" },
   { label: "Leisurewear", href: "/collections/leisurewear" },
   { label: "Sales", href: "/collections/sale" },
+];
+
+const featureTiles = [
+  {
+    eyebrow: "New In",
+    title: "The Latest Collection",
+    image: "/placeholders/menu-latest-collection.jpg",
+    href: "/collections/new-arrivals",
+  },
+  {
+    eyebrow: "Most Loved",
+    title: "Best Sellers",
+    image: "/placeholders/menu-best-seller.jpg",
+    href: "/collections/bestsellers",
+  },
 ];
 
 type MenuItem = { label: string; href: string };
@@ -274,20 +290,50 @@ export default function Navbar() {
           onMouseEnter={() => openDesktopMenu("shop-all")}
           onMouseLeave={scheduleCloseMenu}
         >
-          <div className="mx-auto max-w-[1400px] px-6 py-9">
-            <div className="grid grid-cols-3 gap-12">
+          <div className="mx-auto grid min-h-[48vh] max-w-[1400px] grid-cols-12 gap-10 px-6 py-9">
+            <div className="col-span-6 grid grid-cols-3 content-start gap-8">
               <MenuColumn heading="Shop By" items={shopByItems} onNavigate={closeMenus} />
               <MenuColumn heading="Activities" items={activityItems} onNavigate={closeMenus} />
               <MenuColumn heading="Shop For" items={shopForItems} onNavigate={closeMenus} />
+              <Link
+                href="/collections"
+                onClick={closeMenus}
+                className="col-span-3 mt-3 inline-flex items-center gap-3 border-t border-border-cream pt-5 font-sans text-[0.7rem] font-medium uppercase tracking-[0.16em] text-near-black no-underline transition-colors hover:text-terracotta"
+              >
+                Shop the full range
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
-            <Link
-              href="/collections"
-              onClick={closeMenus}
-              className="mt-9 inline-flex items-center gap-3 border-t border-border-cream pt-5 font-sans text-[0.7rem] font-medium uppercase tracking-[0.16em] text-near-black no-underline transition-colors hover:text-terracotta"
-            >
-              Shop the full range
-              <span aria-hidden="true">→</span>
-            </Link>
+
+            <div className="col-span-6 grid grid-cols-2 gap-4">
+              {featureTiles.map((tile) => (
+                <Link
+                  key={tile.href}
+                  href={tile.href}
+                  onClick={closeMenus}
+                  className="group relative block h-full overflow-hidden no-underline"
+                >
+                  <div className="relative h-full min-h-[36vh] w-full overflow-hidden bg-warm-sand">
+                    <Image
+                      src={tile.image}
+                      alt={tile.title}
+                      fill
+                      sizes="(max-width: 1024px) 40vw, 40vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-near-black/55 via-transparent to-transparent" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <span className="mb-1.5 block font-sans text-[0.62rem] font-medium uppercase tracking-[0.2em] text-ivory/80">
+                      {tile.eyebrow}
+                    </span>
+                    <span className="block font-serif text-[1.5rem] leading-tight text-ivory">
+                      {tile.title}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
