@@ -59,7 +59,7 @@ export default function Categories() {
                       {cat.subtitle}
                     </p>
                   )}
-                  <span className="inline-flex items-center gap-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-all duration-300 group-hover:gap-3">
+                  <span className="inline-flex min-h-[48px] items-center gap-3 bg-ivory px-5 py-3 font-sans text-[0.8rem] font-medium uppercase tracking-[0.14em] transition-all duration-300 group-hover:gap-4">
                     Shop now
                     <svg
                       className="h-4 w-4"
