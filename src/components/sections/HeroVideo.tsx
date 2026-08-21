@@ -4,14 +4,21 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
 
+interface HeroVideoProps {
+  /** Milliseconds to hold the still image before mounting the video. */
+  startDelayMs?: number;
+}
+
 /**
  * Video variant of the hero. Plays a muted, golden-hour beach clip once and
  * freezes on the final frame. Falls back to the still image for reduced-motion
- * users and while the clip buffers. Used on the /index-video comparison page.
+ * users and while the clip buffers. The homepage supplies a five-second delay;
+ * the /index-video comparison page keeps the default immediate start.
  */
-export default function HeroVideo() {
+export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(startDelayMs <= 0);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   // Respect the user's reduced-motion preference — fall back to the still image.
@@ -23,16 +30,63 @@ export default function HeroVideo() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Count only visible time so a background tab does not unexpectedly start media.
+  useEffect(() => {
+    if (reducedMotion || startDelayMs <= 0) {
+      setVideoStarted(!reducedMotion && startDelayMs <= 0);
+      return;
+    }
+
+    let remainingMs = startDelayMs;
+    let timer: number | null = null;
+    let timerStartedAt = 0;
+
+    const clearTimer = () => {
+      if (timer !== null) {
+        window.clearTimeout(timer);
+        timer = null;
+        remainingMs = Math.max(0, remainingMs - (Date.now() - timerStartedAt));
+      }
+    };
+
+    const startTimer = () => {
+      if (remainingMs <= 0) {
+        setVideoStarted(true);
+        return;
+      }
+      if (document.visibilityState !== "visible" || timer !== null) return;
+
+      timerStartedAt = Date.now();
+      timer = window.setTimeout(() => {
+        timer = null;
+        remainingMs = 0;
+        setVideoStarted(true);
+      }, remainingMs);
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        startTimer();
+      } else {
+        clearTimer();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    startTimer();
+
+    return () => {
+      clearTimer();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [reducedMotion, startDelayMs]);
+
   // Some browsers need an explicit play() even with the autoPlay attribute.
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
-    if (reducedMotion) {
-      v.pause();
-    } else {
-      v.play().catch(() => {});
-    }
-  }, [reducedMotion]);
+    if (!v || reducedMotion || !videoStarted) return;
+    v.play().catch(() => {});
+  }, [reducedMotion, videoStarted]);
 
   return (
     <section className="relative min-h-[100vh] flex items-end overflow-hidden bg-near-black">
@@ -48,8 +102,8 @@ export default function HeroVideo() {
         />
       </div>
 
-      {/* Background video — fades in over the image once it can play, holds on the last frame */}
-      {!reducedMotion && (
+      {/* Background video — mounts after the optional delay, then fades in once it can play */}
+      {!reducedMotion && videoStarted && (
         <video
           ref={videoRef}
           className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-out ${

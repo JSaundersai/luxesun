@@ -1,6 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Hero from "@/components/sections/Hero";
+import HeroVideo from "@/components/sections/HeroVideo";
 import ValuesStrip from "@/components/sections/ValuesStrip";
 import Categories from "@/components/sections/Categories";
 import EditorialBanner from "@/components/sections/EditorialBanner";
@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <Navbar />
       <main className="pt-0">
-        <Hero />
+        <HeroVideo startDelayMs={5000} />
         <ValuesStrip />
         <Categories />
         <EditorialBanner />
