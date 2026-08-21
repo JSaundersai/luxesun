@@ -98,7 +98,7 @@ export default function FeaturedProducts() {
             <FadeIn
               key={product.id}
               delay={i * 100}
-              className="min-w-[72vw] snap-start sm:min-w-[42vw] md:min-w-[31vw] lg:min-w-[28vw]"
+              className="min-w-[72vw] snap-start sm:min-w-[42vw] md:min-w-[31vw] lg:min-w-[34vw]"
             >
               <ProductCard product={product} />
             </FadeIn>
