@@ -75,6 +75,22 @@ export const collections: CollectionDef[] = [
   },
   // Flags
   {
+    slug: "activewear",
+    title: "Activewear",
+    description: "Performance-first UPF 50+ layers for every sun sport.",
+    image: "/placeholders/products/ace-crop-front.jpg",
+    subCategories: [...productTypes],
+    filter: (p) => p.gender !== "men",
+  },
+  {
+    slug: "leisurewear",
+    title: "Leisurewear",
+    description: "Easy sun coverage for off-court days and everywhere in between.",
+    image: "/placeholders/products/serve-shirt-front.jpg",
+    filter: (p) => p.category === "Shirts" && p.gender !== "men",
+  },
+  // Flags
+  {
     slug: "new-arrivals",
     title: "New Arrivals",
     description: "The latest UPF 50+ drops, fresh off the line.",

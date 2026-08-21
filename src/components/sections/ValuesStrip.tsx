@@ -19,7 +19,7 @@ const values = [
 
 export default function ValuesStrip() {
   return (
-    <div className="relative z-[3] -mt-8 bg-ivory border-y border-border-cream px-6 py-12 md:-mt-12">
+    <div className="relative z-[3] -mt-20 bg-ivory border-y border-border-cream px-6 py-6 md:-mt-20">
       <div className="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-10">
         {values.map((v) => (
           <div key={v.title} className="text-center lg:text-left">

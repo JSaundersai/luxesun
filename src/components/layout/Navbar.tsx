@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
-import { useEffect } from "react";
 import { useAnalytics } from "@/context/AnalyticsProvider";
 
 const shopByItems = [
@@ -23,37 +21,19 @@ const activityItems = [
 const shopForItems = [
   { label: "New Arrivals", href: "/collections/new-arrivals" },
   { label: "Best Sellers", href: "/collections/bestsellers" },
-  { label: "Sale", href: "/collections/sale" },
+  { label: "Sales", href: "/collections/sale" },
 ];
 
-const mensItems = [
-  { label: "Half-Zip Sun Shirt", href: "/products/summit-men-s-half-zip-sun-shirt" },
-  { label: "UV Long-Sleeve", href: "/products/meridian-men-s-uv-long-sleeve" },
-  { label: "Shop All Men", href: "/collections/mens" },
-];
-
-const collectionsItems = [
+const collectionMenuItems = [
   { label: "New Arrivals", href: "/collections/new-arrivals" },
   { label: "Best Sellers", href: "/collections/bestsellers" },
-  { label: "Beach Volleyball", href: "/collections/beach-volleyball" },
-  { label: "Run & Train", href: "/collections/running" },
-  { label: "Shop All", href: "/collections" },
+  { label: "Activewear", href: "/collections/activewear" },
+  { label: "Leisurewear", href: "/collections/leisurewear" },
+  { label: "Sales", href: "/collections/sale" },
 ];
 
-const featureTiles = [
-  {
-    eyebrow: "New In",
-    title: "The Latest Collection",
-    image: "/placeholders/menu-latest-collection.jpg",
-    href: "/collections/new-arrivals",
-  },
-  {
-    eyebrow: "Most Loved",
-    title: "Best Sellers",
-    image: "/placeholders/menu-best-seller.jpg",
-    href: "/collections/bestsellers",
-  },
-];
+type MenuItem = { label: string; href: string };
+type DesktopMenu = "shop-all" | "collection" | "sales";
 
 function MenuColumn({
   heading,
@@ -61,12 +41,12 @@ function MenuColumn({
   onNavigate,
 }: {
   heading: string;
-  items: { label: string; href: string }[];
+  items: MenuItem[];
   onNavigate: () => void;
 }) {
   return (
     <div>
-      <div className="font-sans text-[0.62rem] font-medium tracking-[0.22em] uppercase text-stone-gray mb-5">
+      <div className="mb-5 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-stone-gray">
         {heading}
       </div>
       <ul className="list-none space-y-3">
@@ -86,12 +66,26 @@ function MenuColumn({
   );
 }
 
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`h-3 w-3 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
-  const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<DesktopMenu | null>(null);
   const { count, openCart } = useCart();
   const { trackView } = useAnalytics();
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     try {
@@ -105,112 +99,125 @@ export default function Navbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
+  }, []);
+
   const closeMenus = () => {
-    setShopOpen(false);
-    setCollectionsOpen(false);
+    setOpenMenu(null);
+    setMobileOpen(false);
   };
 
-  // Hover-intent so the full-width panel doesn't flicker shut when the pointer
-  // travels from the "Shop" trigger down into the panel.
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const openShop = () => {
+  const openDesktopMenu = (menu: DesktopMenu) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setCollectionsOpen(false);
-    setShopOpen(true);
+    setOpenMenu(menu);
   };
-  const scheduleCloseShop = () => {
+
+  const scheduleCloseMenu = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setShopOpen(false), 140);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 160);
   };
+
+  const handleMenuKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    menu: DesktopMenu,
+  ) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setOpenMenu(null);
+      event.currentTarget.focus();
+    }
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setOpenMenu(menu);
+    }
+  };
+
+  const menuButtonClass =
+    "flex items-center gap-1.5 border-none bg-transparent font-sans text-[0.78rem] uppercase tracking-[0.12em] text-olive-gray transition-colors duration-200 hover:text-near-black";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-parchment border-b border-border-cream">
-      <div className="max-w-[1400px] mx-auto px-6 py-5 flex items-center justify-between">
-        {/* Logo */}
+    <nav
+      aria-label="Primary navigation"
+      className="fixed left-0 right-0 top-0 z-50 border-b border-border-cream bg-parchment"
+    >
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5">
         <Link
           href="/"
           onClick={closeMenus}
-          className="font-serif text-[1.6rem] font-medium tracking-[0.12em] no-underline text-near-black"
+          className="font-serif text-[1.6rem] font-medium tracking-[0.12em] text-near-black no-underline"
         >
           Luxe Sun
         </Link>
 
-        {/* Primary nav */}
-        <ul className="hidden md:flex gap-10 items-center list-none absolute left-1/2 -translate-x-1/2">
-          {/* Shop — mega menu trigger */}
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 list-none items-center gap-10 md:flex">
           <li
             className="static"
-            onMouseEnter={openShop}
-            onMouseLeave={scheduleCloseShop}
+            onMouseEnter={() => openDesktopMenu("shop-all")}
+            onMouseLeave={scheduleCloseMenu}
           >
             <button
-              className="font-sans text-[0.78rem] tracking-[0.12em] uppercase bg-transparent border-none cursor-pointer flex items-center gap-1.5 text-olive-gray hover:text-near-black transition-colors duration-200"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={openMenu === "shop-all"}
+              aria-controls="shop-all-menu"
+              onClick={() => setOpenMenu("shop-all")}
+              onKeyDown={(event) => handleMenuKeyDown(event, "shop-all")}
+              className={`${menuButtonClass} cursor-pointer`}
             >
-              Shop
-              <svg
-                className={`w-3 h-3 transition-transform duration-300 ${shopOpen ? "rotate-180" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              Shop All
+              <Chevron open={openMenu === "shop-all"} />
             </button>
           </li>
 
-          {/* Collections — small dropdown */}
           <li
-            className="relative"
-            onMouseEnter={() => {
-              setCollectionsOpen(true);
-              setShopOpen(false);
-            }}
-            onMouseLeave={() => setCollectionsOpen(false)}
+            className="static"
+            onMouseEnter={() => openDesktopMenu("collection")}
+            onMouseLeave={scheduleCloseMenu}
           >
             <button
-              className="font-sans text-[0.78rem] tracking-[0.12em] uppercase bg-transparent border-none cursor-pointer flex items-center gap-1.5 text-olive-gray hover:text-near-black transition-colors duration-200"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={openMenu === "collection"}
+              aria-controls="collection-menu"
+              onClick={() => setOpenMenu("collection")}
+              onKeyDown={(event) => handleMenuKeyDown(event, "collection")}
+              className={`${menuButtonClass} cursor-pointer`}
             >
-              Collections
-              <svg
-                className={`w-3 h-3 transition-transform duration-300 ${collectionsOpen ? "rotate-180" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              Collection
+              <Chevron open={openMenu === "collection"} />
             </button>
+          </li>
 
-            {collectionsOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-5">
-                <div className="bg-white border border-border-cream shadow-whisper py-4 min-w-[180px]">
-                  <ul className="list-none">
-                    {collectionsItems.map((item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={item.href}
-                          onClick={closeMenus}
-                          className="block font-sans text-[0.85rem] text-near-black no-underline px-6 py-2.5 transition-colors duration-200 hover:bg-parchment hover:text-terracotta"
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
+          <li
+            className="static"
+            onMouseEnter={() => openDesktopMenu("sales")}
+            onMouseLeave={scheduleCloseMenu}
+          >
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={openMenu === "sales"}
+              aria-controls="sales-menu"
+              onClick={() => setOpenMenu("sales")}
+              onKeyDown={(event) => handleMenuKeyDown(event, "sales")}
+              className={`${menuButtonClass} cursor-pointer`}
+            >
+              Sales
+              <Chevron open={openMenu === "sales"} />
+            </button>
           </li>
         </ul>
 
-        {/* Account + Cart */}
         <div className="flex items-center gap-5">
           <Link
             href="/search"
             aria-label="Search"
-            className="text-olive-gray hover:text-near-black transition-colors duration-200"
+            className="text-olive-gray transition-colors duration-200 hover:text-near-black"
           >
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -219,162 +226,222 @@ export default function Navbar() {
           <Link
             href="/account"
             aria-label="Account"
-            className="hidden sm:block text-olive-gray hover:text-near-black transition-colors duration-200"
+            className="hidden text-olive-gray transition-colors duration-200 hover:text-near-black sm:block"
           >
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
           </Link>
 
           <button
+            type="button"
             onClick={openCart}
             aria-label="Cart"
-            className="relative text-olive-gray hover:text-near-black transition-colors duration-200"
+            className="relative text-olive-gray transition-colors duration-200 hover:text-near-black"
           >
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
             {count > 0 && (
-              <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-terracotta text-ivory font-sans text-[0.6rem] font-medium leading-none">
+              <span className="absolute -right-2 -top-2 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-terracotta px-1 font-sans text-[0.6rem] font-medium leading-none text-ivory">
                 {count}
               </span>
             )}
           </button>
 
-          {/* Mobile hamburger */}
           <button
+            type="button"
             aria-label="Menu"
-            className="flex md:hidden flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            className="flex cursor-pointer flex-col gap-[5px] border-none bg-transparent p-1 md:hidden"
+            onClick={() => setMobileOpen((open) => !open)}
           >
-            <span className={`block w-[22px] h-[2px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block w-[22px] h-[2px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-[22px] h-[2px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <span className={`block h-[2px] w-[22px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+            <span className={`block h-[2px] w-[22px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-[2px] w-[22px] rounded bg-near-black transition-all duration-300 ${mobileOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
           </button>
         </div>
       </div>
 
-      {/* Shop mega menu — full-width, ~half screen */}
-      {shopOpen && (
+      {openMenu === "shop-all" && (
         <div
-          className="hidden md:block absolute left-0 right-0 top-full bg-white border-t border-b border-border-cream shadow-whisper"
-          onMouseEnter={openShop}
-          onMouseLeave={scheduleCloseShop}
+          id="shop-all-menu"
+          className="absolute left-0 right-0 top-full hidden border-b border-border-cream bg-white shadow-whisper md:block"
+          onMouseEnter={() => openDesktopMenu("shop-all")}
+          onMouseLeave={scheduleCloseMenu}
         >
-          <div className="max-w-[1400px] mx-auto px-6 py-10 grid grid-cols-12 gap-10 min-h-[48vh]">
-            {/* Category columns (left) */}
-            <div className="col-span-6 grid grid-cols-4 gap-8 content-start">
+          <div className="mx-auto max-w-[1400px] px-6 py-9">
+            <div className="grid grid-cols-3 gap-12">
               <MenuColumn heading="Shop By" items={shopByItems} onNavigate={closeMenus} />
-              <MenuColumn heading="Men" items={mensItems} onNavigate={closeMenus} />
               <MenuColumn heading="Activities" items={activityItems} onNavigate={closeMenus} />
-              <MenuColumn heading="Featured" items={shopForItems} onNavigate={closeMenus} />
+              <MenuColumn heading="Shop For" items={shopForItems} onNavigate={closeMenus} />
             </div>
+            <Link
+              href="/collections"
+              onClick={closeMenus}
+              className="mt-9 inline-flex items-center gap-3 border-t border-border-cream pt-5 font-sans text-[0.7rem] font-medium uppercase tracking-[0.16em] text-near-black no-underline transition-colors hover:text-terracotta"
+            >
+              Shop the full range
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      )}
 
-            {/* Feature tiles (right) */}
-            <div className="col-span-6 grid grid-cols-2 gap-4">
-              {featureTiles.map((tile) => (
+      {openMenu === "collection" && (
+        <div
+          id="collection-menu"
+          className="absolute left-0 right-0 top-full hidden border-b border-border-cream bg-white shadow-whisper md:block"
+          onMouseEnter={() => openDesktopMenu("collection")}
+          onMouseLeave={scheduleCloseMenu}
+        >
+          <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-10 px-6 py-7">
+            <div className="col-span-8 grid grid-cols-5 gap-3">
+              {collectionMenuItems.map((item) => (
                 <Link
-                  key={tile.href}
-                  href={tile.href}
+                  key={item.href}
+                  href={item.href}
                   onClick={closeMenus}
-                  className="group relative block h-full overflow-hidden no-underline"
+                  className="group border border-border-cream px-4 py-4 font-sans text-[0.76rem] font-medium uppercase tracking-[0.1em] text-near-black no-underline transition-colors duration-200 hover:border-near-black hover:bg-parchment"
                 >
-                  <div className="relative h-full min-h-[40vh] w-full overflow-hidden bg-warm-sand">
-                    <Image
-                      src={tile.image}
-                      alt={tile.title}
-                      fill
-                      sizes="(max-width: 1024px) 40vw, 40vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-near-black/55 via-transparent to-transparent" />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <span className="block font-sans text-[0.62rem] font-medium tracking-[0.2em] uppercase text-ivory/80 mb-1.5">
-                      {tile.eyebrow}
+                  <span className="flex items-center justify-between gap-2">
+                    {item.label}
+                    <span className="text-stone-gray transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+                      →
                     </span>
-                    <span className="block font-serif text-[1.5rem] leading-tight text-ivory">
-                      {tile.title}
-                    </span>
-                  </div>
+                  </span>
                 </Link>
               ))}
+            </div>
+            <div className="col-span-4 border-l border-border-cream pl-8">
+              <p className="mb-3 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-stone-gray">
+                The collection edit
+              </p>
+              <h2 className="mb-2 font-serif text-[1.7rem] leading-tight text-near-black">
+                Coverage for every kind of day.
+              </h2>
+              <p className="max-w-[310px] font-sans text-[0.82rem] leading-relaxed text-stone-gray">
+                Explore the newest drops, everyday activewear, easy leisure layers, and limited-time sales.
+              </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Mobile menu */}
+      {openMenu === "sales" && (
+        <div
+          id="sales-menu"
+          className="absolute left-0 right-0 top-full hidden border-b border-border-cream bg-white shadow-whisper md:block"
+          onMouseEnter={() => openDesktopMenu("sales")}
+          onMouseLeave={scheduleCloseMenu}
+        >
+          <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-8 px-6 py-7">
+            <div>
+              <p className="mb-2 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-terracotta">
+                Limited edit
+              </p>
+              <h2 className="mb-1 font-serif text-[1.7rem] leading-tight text-near-black">
+                Sun protection, marked down.
+              </h2>
+              <p className="font-sans text-[0.82rem] leading-relaxed text-stone-gray">
+                Shop limited-time markdowns on select sun-protective styles.
+              </p>
+            </div>
+            <Link
+              href="/collections/sale"
+              onClick={closeMenus}
+              className="btn-secondary shrink-0"
+            >
+              Shop sales
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      )}
+
       {mobileOpen && (
-        <div className="md:hidden border-t border-border-cream bg-parchment px-6 py-6 space-y-3 max-h-[80vh] overflow-y-auto">
-          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2">
+        <div
+          id="mobile-menu"
+          aria-label="Mobile menu"
+          className="max-h-[80vh] space-y-3 overflow-y-auto border-t border-border-cream bg-parchment px-6 py-6 md:hidden"
+        >
+          <div className="mb-3 border-b border-border-cream pb-3 font-sans text-[0.78rem] font-medium uppercase tracking-[0.12em] text-near-black">
+            Shop All
+          </div>
+
+          <div className="mb-2 pt-1 font-sans text-[0.68rem] font-medium uppercase tracking-[0.2em] text-stone-gray">
             Shop By
           </div>
           {shopByItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMenus}
+              className="block pl-3 font-sans text-sm text-olive-gray no-underline transition-colors hover:text-near-black"
             >
               {item.label}
             </Link>
           ))}
-          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2 pt-3">
+
+          <div className="mb-2 pt-4 font-sans text-[0.68rem] font-medium uppercase tracking-[0.2em] text-stone-gray">
             Activities
           </div>
           {activityItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMenus}
+              className="block pl-3 font-sans text-sm text-olive-gray no-underline transition-colors hover:text-near-black"
             >
               {item.label}
             </Link>
           ))}
-          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2 pt-3">
-            Featured
+
+          <div className="mb-2 pt-4 font-sans text-[0.68rem] font-medium uppercase tracking-[0.2em] text-stone-gray">
+            Shop For
           </div>
           {shopForItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMenus}
+              className="block pl-3 font-sans text-sm text-olive-gray no-underline transition-colors hover:text-near-black"
             >
               {item.label}
             </Link>
           ))}
-          <div className="font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2 pt-3">
-            Men
+
+          <div className="mb-2 mt-5 border-t border-border-cream pt-5 font-sans text-[0.78rem] font-medium uppercase tracking-[0.12em] text-near-black">
+            Collection
           </div>
-          {mensItems.map((item) => (
+          {collectionMenuItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMenus}
+              className="block pl-3 font-sans text-sm text-olive-gray no-underline transition-colors hover:text-near-black"
             >
               {item.label}
             </Link>
           ))}
-          <div className="border-t border-border-cream pt-3 mt-3 font-sans text-[0.78rem] tracking-[0.12em] uppercase text-near-black font-medium mb-2">
-            Collections
+
+          <div className="mb-2 mt-5 border-t border-border-cream pt-5 font-sans text-[0.78rem] font-medium uppercase tracking-[0.12em] text-near-black">
+            Sales
           </div>
-          {collectionsItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block font-sans text-sm text-olive-gray no-underline hover:text-near-black pl-3"
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          <p className="pl-3 font-sans text-sm leading-relaxed text-stone-gray">
+            Limited-time markdowns on select sun-protective styles.
+          </p>
+          <Link
+            href="/collections/sale"
+            onClick={closeMenus}
+            className="block pl-3 pt-1 font-sans text-sm font-medium text-terracotta no-underline"
+          >
+            Shop sales →
+          </Link>
         </div>
       )}
     </nav>

@@ -9,10 +9,10 @@ export default function Categories() {
   return (
     <section
       id="collections"
-      className="overflow-hidden bg-parchment px-6 py-20 md:py-28"
+      className="overflow-hidden bg-parchment px-6 py-12 md:py-20"
     >
       <div className="mx-auto max-w-[1400px]">
-        <FadeIn className="mb-10 max-w-[560px] md:mb-14">
+        <FadeIn className="mb-8 max-w-[560px] md:mb-10">
           <p className="section-eyebrow">Shop by sport</p>
           <h2 className="section-title mb-4">Move in the sun.</h2>
           <p className="section-desc">
@@ -22,7 +22,7 @@ export default function Categories() {
         </FadeIn>
 
         {/* The contained rail becomes a three-card grid once there is room. */}
-        <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
+        <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
           {placeholderCategories.map((cat, i) => (
             <FadeIn
               key={cat.title}
