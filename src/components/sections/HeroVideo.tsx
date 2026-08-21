@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
 
 interface HeroVideoProps {
-  /** Milliseconds to hold the still image before mounting the video. */
+  /** Milliseconds to hold the still image before revealing the video. */
   startDelayMs?: number;
 }
 
@@ -85,8 +85,11 @@ export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v || reducedMotion || !videoStarted) return;
+    if (v.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      setVideoReady(true);
+    }
     v.play().catch(() => {});
-  }, [reducedMotion, videoStarted]);
+  }, [reducedMotion, videoReady, videoStarted]);
 
   return (
     <section className="relative min-h-[100vh] flex items-end overflow-hidden bg-near-black">
@@ -102,14 +105,14 @@ export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
         />
       </div>
 
-      {/* Background video — mounts after the optional delay, then fades in once it can play */}
-      {!reducedMotion && videoStarted && (
+      {/* Background video — preloads behind the still, then reveals once the delay and buffer are ready */}
+      {!reducedMotion && (
         <video
           ref={videoRef}
           className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-out ${
-            videoReady ? "opacity-100" : "opacity-0"
+            videoReady && videoStarted ? "opacity-100" : "opacity-0"
           }`}
-          autoPlay
+          autoPlay={videoStarted}
           muted
           playsInline
           preload="auto"
