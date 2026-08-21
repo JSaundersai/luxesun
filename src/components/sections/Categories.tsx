@@ -7,45 +7,75 @@ import FadeIn from "@/components/animations/FadeIn";
 
 export default function Categories() {
   return (
-    <section id="collections" className="py-20 px-6 bg-parchment">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1200px] mx-auto">
+    <section
+      id="collections"
+      className="overflow-hidden bg-parchment px-6 py-20 md:py-28"
+    >
+      <div className="mx-auto max-w-[1400px]">
+        <FadeIn className="mb-10 max-w-[560px] md:mb-14">
+          <p className="section-eyebrow">Shop by sport</p>
+          <h2 className="section-title mb-4">Move in the sun.</h2>
+          <p className="section-desc">
+            Purpose-built coverage for the court, the trail and every outdoor
+            session in between.
+          </p>
+        </FadeIn>
+
+        {/* The contained rail becomes a three-card grid once there is room. */}
+        <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
           {placeholderCategories.map((cat, i) => (
-            <FadeIn key={cat.title} delay={i * 150}>
+            <FadeIn
+              key={cat.title}
+              delay={i * 150}
+              className="min-w-[82vw] snap-start sm:min-w-[60vw] md:min-w-0"
+            >
               <Link
                 href={`/collections/${cat.slug}`}
-                className="relative aspect-[16/9] md:aspect-[2/1] overflow-hidden bg-dark-surface group block w-full"
+                aria-label={`Shop ${cat.title}`}
+                className="group relative block aspect-[4/5] w-full overflow-hidden bg-dark-surface"
               >
                 <Image
                   src={cat.image}
                   alt={cat.title}
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 639px) 82vw, (max-width: 1023px) 50vw, 33vw"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
                 />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-near-black/70 via-near-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-near-black/80 via-near-black/10 to-transparent" />
 
-                {/* Text */}
-                <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14">
-                  <div className="font-serif text-[3rem] md:text-[3.5rem] font-medium text-ivory mb-3">
+                <div className="absolute inset-x-0 bottom-0 p-6 text-ivory sm:p-8 md:p-9">
+                  <span className="mb-3 block font-sans text-[0.62rem] font-medium uppercase tracking-[0.24em] text-warm-silver/80">
+                    0{i + 1} / Luxe Sun
+                  </span>
+                  <h3 className="mb-3 font-serif text-[2.7rem] font-medium leading-[0.95] sm:text-[3.2rem] md:text-[2.7rem] lg:text-[3.2rem]">
                     {cat.title}
-                  </div>
+                  </h3>
                   {cat.subtitle && (
-                    <div className="font-sans text-[0.9rem] text-warm-silver/90 mb-5 max-w-[320px]">
+                    <p className="mb-5 max-w-[320px] font-sans text-[0.85rem] leading-[1.55] text-warm-silver/90">
                       {cat.subtitle}
-                    </div>
+                    </p>
                   )}
-                  <div className="inline-flex items-center gap-2 text-ivory font-sans text-[0.75rem] font-medium tracking-[0.12em] uppercase group-hover:gap-3 transition-all duration-300">
-                    <span>Shop Now</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <span className="inline-flex items-center gap-2 font-sans text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-all duration-300 group-hover:gap-3">
+                    Shop now
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
                     </svg>
-                  </div>
+                  </span>
                 </div>
               </Link>
             </FadeIn>

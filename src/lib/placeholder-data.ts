@@ -299,7 +299,7 @@ export function normalizeProduct(p: PlaceholderProduct): PlaceholderProduct {
   };
 }
 
-/** The two hero shopping worlds surfaced on the homepage. */
+/** The three hero shopping worlds surfaced on the homepage. */
 export const placeholderCategories = [
   {
     title: "Beach Volleyball",
@@ -307,7 +307,7 @@ export const placeholderCategories = [
     subtitle: "Full-coverage crops, sleeves and base layers built for the sand and sun.",
     count: placeholderProducts.filter((p) => p.subCategory === "Beach Volleyball").length,
     gradient: "from-[#c2a060] to-[#a08040]",
-    image: "/placeholders/products/ace-crop-front.jpg",
+    image: "/placeholders/cat-athletic.jpg",
   },
   {
     title: "Run & Train",
@@ -315,7 +315,15 @@ export const placeholderCategories = [
     subtitle: "Breathable UPF 50+ shirts and crops that keep you cool mile after mile.",
     count: placeholderProducts.filter((p) => p.subCategory === "Running").length,
     gradient: "from-[#8a9a7a] to-[#6a7a5a]",
-    image: "/placeholders/products/horizon-shirt-front.jpg",
+    image: "/placeholders/cat-longsleeves.jpg",
+  },
+  {
+    title: "Tennis & Golf",
+    slug: "tennis-and-golf",
+    subtitle: "Sun-smart shirts and layers with the coverage to last a full match or round.",
+    count: placeholderProducts.filter((p) => p.subCategory === "Tennis & Golf").length,
+    gradient: "from-[#b8a994] to-[#827565]",
+    image: "/placeholders/cat-studio.jpg",
   },
 ];
 
