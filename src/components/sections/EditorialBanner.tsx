@@ -37,7 +37,7 @@ export default function EditorialBanner() {
             </p>
             <a
               href="#products"
-              className="inline-block bg-ivory text-near-black font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-4 cursor-pointer transition-all duration-300 hover:bg-warm-sand"
+              className="inline-flex items-center justify-center rounded-full bg-ivory px-10 py-4 font-sans text-[0.8rem] font-medium uppercase tracking-[0.15em] text-near-black no-underline cursor-pointer transition-all duration-300 hover:bg-warm-sand"
             >
               Shop the Collection
             </a>

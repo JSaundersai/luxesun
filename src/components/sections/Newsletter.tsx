@@ -56,7 +56,7 @@ export default function Newsletter() {
               />
               <button
                 type="submit"
-                className="inline-block bg-near-black text-ivory font-sans text-[0.8rem] font-medium tracking-[0.15em] uppercase px-10 py-3.5 cursor-pointer transition-all duration-300 hover:bg-dark-surface"
+                className="inline-flex shrink-0 items-center justify-center rounded-full bg-near-black px-10 py-3.5 font-sans text-[0.8rem] font-medium uppercase tracking-[0.15em] text-ivory cursor-pointer transition-all duration-300 hover:bg-dark-surface"
               >
                 Subscribe
               </button>

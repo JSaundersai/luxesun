@@ -26,11 +26,31 @@ const shopForItems = [
 ];
 
 const collectionMenuItems = [
-  { label: "New Arrivals", href: "/collections/new-arrivals" },
-  { label: "Best Sellers", href: "/collections/bestsellers" },
-  { label: "Activewear", href: "/collections/activewear" },
-  { label: "Leisurewear", href: "/collections/leisurewear" },
-  { label: "Sales", href: "/collections/sale" },
+  {
+    label: "New Arrivals",
+    description: "Fresh from the studio",
+    href: "/collections/new-arrivals",
+  },
+  {
+    label: "Best Sellers",
+    description: "Most-loved sun layers",
+    href: "/collections/bestsellers",
+  },
+  {
+    label: "Activewear",
+    description: "Made to move outside",
+    href: "/collections/activewear",
+  },
+  {
+    label: "Leisurewear",
+    description: "Easy off-court comfort",
+    href: "/collections/leisurewear",
+  },
+  {
+    label: "Sales",
+    description: "Last chance, less",
+    href: "/collections/sale",
+  },
 ];
 
 const featureTiles = [
@@ -345,32 +365,35 @@ export default function Navbar() {
           onMouseEnter={() => openDesktopMenu("collection")}
           onMouseLeave={scheduleCloseMenu}
         >
-          <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-10 px-6 py-7">
-            <div className="col-span-8 grid grid-cols-5 gap-3">
+          <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-7 px-6 py-5">
+            <div className="col-span-8 grid grid-cols-5 gap-2">
               {collectionMenuItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={closeMenus}
-                  className="group border border-border-cream px-4 py-4 font-sans text-[0.76rem] font-medium uppercase tracking-[0.1em] text-near-black no-underline transition-colors duration-200 hover:border-near-black hover:bg-parchment"
+                  className="group flex flex-col border border-border-cream px-3 py-3 font-sans text-near-black no-underline transition-colors duration-200 hover:border-near-black hover:bg-parchment"
                 >
-                  <span className="flex items-center justify-between gap-2">
-                    {item.label}
-                    <span className="text-stone-gray transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+                  <span className="flex items-start justify-between gap-2 text-[0.72rem] font-medium uppercase leading-tight tracking-[0.1em]">
+                    <span>{item.label}</span>
+                    <span className="shrink-0 text-stone-gray transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
                       →
                     </span>
+                  </span>
+                  <span className="mt-2 font-sans text-[0.68rem] font-normal normal-case leading-snug tracking-normal text-stone-gray">
+                    {item.description}
                   </span>
                 </Link>
               ))}
             </div>
-            <div className="col-span-4 border-l border-border-cream pl-8">
-              <p className="mb-3 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-stone-gray">
+            <div className="col-span-4 border-l border-border-cream pl-6">
+              <p className="mb-2 font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-stone-gray">
                 The collection edit
               </p>
-              <h2 className="mb-2 font-serif text-[1.7rem] leading-tight text-near-black">
+              <h2 className="mb-1 font-serif text-[1.5rem] leading-tight text-near-black">
                 Coverage for every kind of day.
               </h2>
-              <p className="max-w-[310px] font-sans text-[0.82rem] leading-relaxed text-stone-gray">
+              <p className="max-w-[310px] font-sans text-[0.78rem] leading-relaxed text-stone-gray">
                 Explore the newest drops, everyday activewear, easy leisure layers, and limited-time sales.
               </p>
             </div>
