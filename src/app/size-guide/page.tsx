@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHero from "@/components/layout/PageHero";
 import InfoSection from "@/components/layout/InfoSection";
+import { SIZE_ROWS, formatRange } from "@/lib/size-chart";
 
 export const metadata: Metadata = {
   title: "Size Guide — Luxe Sun",
   description: "Find your fit with the Luxe Sun size guide and measurement chart.",
 };
 
-const rows = [
-  { size: "XS", au: "6", bust: "78–82", waist: "60–64", hip: "86–90" },
-  { size: "S", au: "8", bust: "83–87", waist: "65–69", hip: "91–95" },
-  { size: "M", au: "10", bust: "88–92", waist: "70–74", hip: "96–100" },
-  { size: "L", au: "12", bust: "93–97", waist: "75–79", hip: "101–105" },
-  { size: "XL", au: "14", bust: "98–103", waist: "80–85", hip: "106–111" },
-];
+const rows = SIZE_ROWS.map((r) => ({
+  size: r.size,
+  au: r.au,
+  bust: formatRange(r.bust, "cm"),
+  waist: formatRange(r.waist, "cm"),
+  hip: formatRange(r.hip, "cm"),
+}));
 
 export default function SizeGuidePage() {
   return (

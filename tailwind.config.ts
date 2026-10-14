@@ -60,9 +60,15 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(30px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        // Small, quick entrance for content that swaps in place (size fit card).
+        "soft-in": {
+          "0%": { opacity: "0", transform: "translateY(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "fade-in-up": "fade-in-up 1.2s ease-out",
+        "soft-in": "soft-in 0.35s ease-out both",
       },
     },
   },
