@@ -14,6 +14,11 @@
     color: #141413;
     font-family: "Inter", system-ui, -apple-system, sans-serif;
     line-height: 1.6;
+    /* viewport-fit=cover lets the page run edge to edge; keep in-flow content
+       clear of the iPhone Dynamic Island / Fold punch-hole in landscape. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    -webkit-tap-highlight-color: transparent;
   }
 
   button,
@@ -48,10 +53,61 @@
   }
 
   .section-title {
-    @apply font-serif text-[2.8rem] lg:text-[3.2rem] font-medium leading-[1.1] text-near-black mb-5;
+    @apply font-serif text-[2.25rem] sm:text-[2.8rem] lg:text-[3.2rem] font-medium leading-[1.1] text-near-black mb-5;
   }
 
   .section-desc {
     @apply font-sans text-[1rem] leading-[1.7] text-olive-gray max-w-xl;
+  }
+
+  /* ── Mobile app-style primitives (mobile_shop_layout reference) ── */
+
+  /* Solid near-black pill with sentence-case label — the primary mobile CTA. */
+  .btn-pill {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-near-black px-7
+      font-sans text-[0.95rem] font-medium text-ivory no-underline cursor-pointer
+      transition-[background-color,transform] duration-300 hover:bg-dark-surface active:scale-[0.98];
+  }
+
+  .btn-pill-light {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-ivory px-7
+      font-sans text-[0.95rem] font-medium text-near-black no-underline cursor-pointer
+      transition-[background-color,transform] duration-300 hover:bg-warm-sand active:scale-[0.98];
+  }
+
+  .btn-pill-outline {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-white/70 px-7
+      font-sans text-[0.95rem] font-medium text-near-black no-underline cursor-pointer ring-1 ring-inset ring-near-black/10
+      transition-[background-color,transform] duration-300 hover:bg-white active:scale-[0.98];
+  }
+
+  /* Filter / size chip. Pair with .chip-active for the selected state. */
+  .chip {
+    @apply inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-white px-5
+      font-sans text-[0.9rem] text-near-black ring-1 ring-inset ring-near-black/[0.06]
+      transition-colors duration-200;
+  }
+
+  .chip-active {
+    @apply bg-near-black text-ivory ring-near-black;
+  }
+
+  /* Frosted circle controls. "light" sits on photography, "dark" on light pages. */
+  .glass-light {
+    @apply bg-white/20 text-white ring-1 ring-inset ring-white/35 backdrop-blur-xl backdrop-saturate-150;
+  }
+
+  .glass-dark {
+    @apply bg-ivory/75 text-near-black shadow-float ring-1 ring-inset ring-near-black/[0.06] backdrop-blur-xl backdrop-saturate-150;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

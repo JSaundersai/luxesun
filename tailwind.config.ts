@@ -17,6 +17,8 @@ const config: Config = {
         },
         // Surfaces
         parchment: "#f5f4ed",
+        // Soft warm grey behind product imagery on mobile cards
+        mist: "#e7e2db",
         ivory: "#faf9f5",
         "warm-sand": "#e8e6dc",
         // Dark
@@ -42,11 +44,16 @@ const config: Config = {
         generous: "12px",
         "very-round": "16px",
         "max-round": "32px",
+        // Mobile app-style surfaces (see mobile_shop_layout reference)
+        card: "18px",
+        sheet: "28px",
       },
       boxShadow: {
         whisper: "rgba(0,0,0,0.05) 0px 4px 24px",
         "ring-terracotta": "#c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px",
         "ring-warm": "#e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px",
+        float: "0 6px 24px rgba(20,20,19,0.10)",
+        sheet: "0 -12px 40px rgba(20,20,19,0.10)",
       },
       keyframes: {
         "fade-in-up": {

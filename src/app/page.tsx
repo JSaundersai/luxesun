@@ -1,28 +1,12 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import HeroVideo from "@/components/sections/HeroVideo";
-import ValuesStrip from "@/components/sections/ValuesStrip";
-import Categories from "@/components/sections/Categories";
-import EditorialBanner from "@/components/sections/EditorialBanner";
-import FeaturedProducts from "@/components/sections/FeaturedProducts";
-import FeatureBanner from "@/components/sections/FeatureBanner";
-import Testimonials from "@/components/sections/Testimonials";
-import Newsletter from "@/components/sections/Newsletter";
+import HomeSections from "@/components/sections/HomeSections";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="pt-0">
-        <HeroVideo startDelayMs={5000} />
-        <ValuesStrip />
-        <Categories />
-        <EditorialBanner />
-        <FeaturedProducts />
-        <FeatureBanner />
-        <Testimonials />
-        <Newsletter />
-      </main>
+      <HomeSections startDelayMs={5000} />
       <Footer />
     </>
   );

@@ -21,7 +21,7 @@ export default function WishlistPage() {
         title="Wishlist"
         description="Keep track of the styles you love — save them here and shop when you're ready."
       />
-      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 min-h-[35vh]">
+      <div className="mx-auto min-h-[35vh] max-w-[1400px] px-5 py-10 sm:px-8 md:py-24 lg:px-6">
         {saved.length === 0 ? (
           <div className="border border-border-cream bg-ivory py-20 px-6 text-center">
             <p className="font-serif text-2xl text-near-black mb-3">
@@ -35,7 +35,7 @@ export default function WishlistPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+          <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:grid-cols-3 sm:gap-x-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12">
             {saved.map((p, i) => (
               <FadeIn key={p.id} delay={i * 100}>
                 <ProductCard product={p} />

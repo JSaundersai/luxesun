@@ -27,19 +27,76 @@ const supportLinks = [
   { label: "Find a Store", href: "/find-a-store" },
 ];
 
+const accountLinks = [
+  { label: "Sign In", href: "/account" },
+  { label: "Wishlist", href: "/wishlist" },
+  { label: "Cart", href: "/cart" },
+  { label: "Partner Portal", href: "/partners" },
+  { label: "Admin", href: "/admin" },
+];
+
 const legalLinks = [
   { label: "Terms of Service", href: "/terms" },
   { label: "Privacy Policy", href: "/privacy" },
 ];
 
+const linkGroups = [
+  { heading: "Shop", links: shopLinks },
+  { heading: "Company", links: companyLinks },
+  { heading: "Support", links: supportLinks },
+  { heading: "Account", links: accountLinks },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-near-black text-warm-silver pt-16 pb-10 px-6">
+    <footer className="bg-near-black px-5 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-12 text-warm-silver sm:px-8 lg:px-6 lg:pb-10 lg:pt-16">
       <div className="max-w-[1400px] mx-auto">
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-16">
+        {/* Mobile / Fold: brand + accordions */}
+        <div className="lg:hidden">
+          <div className="mb-3 font-serif text-[1.75rem] font-medium tracking-[0.08em] text-ivory">Luxe Sun</div>
+          <p className="mb-8 max-w-[320px] text-[0.88rem] leading-relaxed text-warm-silver/70">
+            Certified UPF 50+ sun-protective activewear for beach volleyball,
+            running and every sun sport.
+          </p>
+
+          <div className="border-t border-dark-surface">
+            {linkGroups.map((group) => (
+              <details key={group.heading} className="group border-b border-dark-surface">
+                <summary className="flex min-h-[56px] cursor-pointer list-none items-center justify-between font-sans text-[0.95rem] font-medium text-ivory [&::-webkit-details-marker]:hidden">
+                  {group.heading}
+                  <svg
+                    className="h-4 w-4 text-warm-silver/70 transition-transform duration-300 group-open:rotate-45"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.6}
+                    strokeLinecap="round"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </summary>
+                <ul className="list-none pb-4">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="flex min-h-[44px] items-center text-[0.92rem] text-warm-silver/75 no-underline transition-colors hover:text-ivory"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop grid */}
+        <div className="mb-16 hidden grid-cols-5 gap-10 lg:grid">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div>
             <div className="font-serif text-2xl font-medium text-ivory mb-4 tracking-[0.08em]">
               Luxe Sun
             </div>
@@ -49,101 +106,41 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Shop */}
-          <div>
-            <div className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-ivory mb-4">
-              Shop
+          {linkGroups.map((group) => (
+            <div key={group.heading}>
+              <div className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-ivory mb-4">
+                {group.heading}
+              </div>
+              <ul className="list-none space-y-2.5">
+                {group.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="list-none space-y-2.5">
-              {shopLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <div className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-ivory mb-4">
-              Company
-            </div>
-            <ul className="list-none space-y-2.5">
-              {companyLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <div className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-ivory mb-4">
-              Support
-            </div>
-            <ul className="list-none space-y-2.5">
-              {supportLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Account */}
-          <div>
-            <div className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-ivory mb-4">
-              Account
-            </div>
-            <ul className="list-none space-y-2.5">
-              <li>
-                <Link href="/account" className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory">
-                  Sign In
-                </Link>
-              </li>
-              <li>
-                <Link href="/wishlist" className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory">
-                  Wishlist
-                </Link>
-              </li>
-              <li>
-                <Link href="/cart" className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory">
-                  Cart
-                </Link>
-              </li>
-              <li>
-                <Link href="/partners" className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory">
-                  Partner Portal
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="text-[0.82rem] text-warm-silver/70 no-underline transition-colors hover:text-ivory">
-                  Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
+          ))}
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-dark-surface pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-stone-gray">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="mt-8 flex flex-col items-start gap-5 text-[0.75rem] text-stone-gray lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:border-t lg:border-dark-surface lg:pt-6">
+          <div className="flex gap-2 lg:order-2 lg:gap-6">
+            {["Instagram", "TikTok", "Pinterest"].map((network) => (
+              <a
+                key={network}
+                href="#"
+                className="inline-flex min-h-[40px] items-center rounded-full px-4 text-[0.8rem] text-warm-silver/80 no-underline ring-1 ring-inset ring-dark-surface transition-colors hover:text-ivory lg:min-h-0 lg:px-0 lg:text-[0.75rem] lg:text-warm-silver/70 lg:ring-0"
+              >
+                {network}
+              </a>
+            ))}
+          </div>
+          <div className="flex flex-col gap-3 lg:order-1 lg:flex-row lg:items-center lg:gap-4">
             <span>&copy; 2026 Luxe Sun. All rights reserved.</span>
             <div className="flex gap-4">
               {legalLinks.map((link) => (
@@ -156,17 +153,6 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
-          <div className="flex gap-6">
-            <a href="#" className="text-warm-silver/70 no-underline transition-colors hover:text-ivory text-[0.75rem]">
-              Instagram
-            </a>
-            <a href="#" className="text-warm-silver/70 no-underline transition-colors hover:text-ivory text-[0.75rem]">
-              TikTok
-            </a>
-            <a href="#" className="text-warm-silver/70 no-underline transition-colors hover:text-ivory text-[0.75rem]">
-              Pinterest
-            </a>
           </div>
         </div>
       </div>

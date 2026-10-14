@@ -3,32 +3,32 @@ import FadeIn from "@/components/animations/FadeIn";
 
 export default function Testimonials() {
   return (
-    <section className="py-28 px-6 bg-parchment">
-      <div className="max-w-[1400px] mx-auto">
+    <section className="bg-parchment px-5 py-14 sm:px-8 sm:py-16 lg:px-6 lg:py-28">
+      <div className="mx-auto max-w-[1400px]">
         {/* Header */}
-        <FadeIn className="text-center mb-16">
+        <FadeIn className="mb-6 lg:mb-16 lg:text-center">
           <p className="section-eyebrow">Community</p>
-          <h2 className="section-title">What Our Girls Say</h2>
+          <h2 className="font-serif text-[2rem] font-medium leading-[1.1] text-near-black sm:text-[2.4rem] lg:mb-5 lg:text-[3.2rem]">
+            What Our Girls Say
+          </h2>
         </FadeIn>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Swipe rail on phones / Fold, three-up grid on desktop */}
+        <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-px-5 px-5 sm:-mx-8 sm:scroll-px-8 sm:gap-3 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0">
           {placeholderTestimonials.map((t, i) => (
-            <FadeIn key={i} delay={i * 150}>
-              <div className="bg-ivory border border-border-cream p-10">
-                <div className="text-terracotta text-sm mb-6 tracking-widest">
+            <FadeIn key={i} delay={i * 150} className="w-[84%] shrink-0 snap-start sm:w-[46%] lg:w-auto">
+              <figure className="flex h-full flex-col rounded-sheet bg-ivory p-6 ring-1 ring-inset ring-near-black/[0.05] lg:rounded-none lg:border lg:border-border-cream lg:p-10 lg:ring-0">
+                <div className="mb-4 text-sm tracking-widest text-terracotta lg:mb-6" aria-label="5 out of 5 stars">
                   ★★★★★
                 </div>
-                <p className="font-serif text-[1.15rem] italic leading-[1.7] text-charcoal-warm mb-8">
+                <blockquote className="mb-6 flex-1 font-serif text-[1.15rem] italic leading-[1.6] text-charcoal-warm lg:mb-8 lg:leading-[1.7]">
                   &ldquo;{t.text}&rdquo;
-                </p>
-                <div className="font-sans text-[0.82rem] font-medium text-near-black">
-                  {t.author}
-                </div>
-                <div className="font-sans text-[0.75rem] text-stone-gray tracking-wide">
-                  {t.role}
-                </div>
-              </div>
+                </blockquote>
+                <figcaption>
+                  <div className="font-sans text-[0.85rem] font-medium text-near-black">{t.author}</div>
+                  <div className="font-sans text-[0.75rem] tracking-wide text-stone-gray">{t.role}</div>
+                </figcaption>
+              </figure>
             </FadeIn>
           ))}
         </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ProductCard from "@/components/product/ProductCard";
-import { useProducts } from "@/context/ProductsProvider";
+import { useProducts, type Product } from "@/context/ProductsProvider";
 import FadeIn from "@/components/animations/FadeIn";
 import Link from "next/link";
 
@@ -12,6 +12,88 @@ const tabs: { id: ProductTab; label: string }[] = [
   { id: "new", label: "New Arrivals" },
   { id: "bestsellers", label: "Best Sellers" },
 ];
+
+/** Filter chips for the mobile "Trending now" grid. Empty chips are hidden. */
+const mobileFilters: { id: string; label: string; match: (p: Product) => boolean }[] = [
+  { id: "all", label: "All", match: () => true },
+  { id: "new", label: "New in", match: (p) => p.badge === "New" },
+  { id: "best", label: "Best sellers", match: (p) => p.badge === "Bestseller" },
+  { id: "sale", label: "Sale", match: (p) => p.badge === "Sale" || Boolean(p.originalPrice) },
+  { id: "crops", label: "Crop tops", match: (p) => p.category === "Crop Tops" },
+  { id: "shirts", label: "Shirts", match: (p) => p.category === "Shirts" },
+  { id: "sleeves", label: "Sleeves", match: (p) => p.category === "Sleeves" },
+  { id: "base", label: "Base layers", match: (p) => p.category === "Base Layers" },
+  { id: "men", label: "Men", match: (p) => p.gender === "men" },
+];
+
+/** Six fills both the 2-column phone grid and the 3-column Fold/tablet grid. */
+const MOBILE_GRID_LIMIT = 6;
+
+function MobileTrending({ products }: { products: Product[] }) {
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filters = useMemo(
+    () => mobileFilters.filter((f) => f.id === "all" || products.some(f.match)),
+    [products]
+  );
+  const current = filters.find((f) => f.id === activeFilter) ?? filters[0];
+  const visible = products.filter(current.match).slice(0, MOBILE_GRID_LIMIT);
+
+  return (
+    <section aria-labelledby="trending-heading" className="bg-parchment pb-14 pt-8 lg:hidden">
+      <div className="flex items-end justify-between px-5 sm:px-8">
+        <h2 id="trending-heading" className="font-serif text-[2rem] font-medium leading-none text-near-black sm:text-[2.4rem]">
+          Trending Now
+        </h2>
+        <Link
+          href="/collections"
+          className="inline-flex min-h-[44px] items-center font-sans text-[0.95rem] text-near-black no-underline"
+        >
+          View all
+        </Link>
+      </div>
+
+      <div
+        role="tablist"
+        aria-label="Filter trending products"
+        className="no-scrollbar mt-4 flex gap-2 overflow-x-auto scroll-px-5 px-5 pb-1 sm:scroll-px-8 sm:px-8"
+      >
+        {filters.map((filter) => {
+          const isActive = filter.id === current.id;
+          return (
+            <button
+              key={filter.id}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              aria-controls="trending-grid"
+              onClick={() => setActiveFilter(filter.id)}
+              className={`chip ${isActive ? "chip-active" : ""}`}
+            >
+              {filter.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        id="trending-grid"
+        role="tabpanel"
+        className="mt-5 grid grid-cols-2 gap-x-2.5 gap-y-6 px-5 sm:grid-cols-3 sm:gap-x-3 sm:px-8"
+      >
+        {visible.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+
+      <div className="mt-8 px-5 sm:px-8">
+        <Link href="/collections" className="btn-pill-outline w-full">
+          Shop all styles
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 export default function FeaturedProducts() {
   const { products } = useProducts();
@@ -40,7 +122,9 @@ export default function FeaturedProducts() {
   };
 
   return (
-    <section id="products" className="overflow-hidden bg-ivory px-6 py-28">
+    <div id="products" className="scroll-mt-4 lg:scroll-mt-[82px]">
+    <MobileTrending products={products} />
+    <section className="hidden overflow-hidden bg-ivory px-6 py-28 lg:block">
       <div className="mx-auto max-w-[1400px]">
         {/* Header and tabs */}
         <FadeIn className="mb-12 md:mb-14">
@@ -153,5 +237,6 @@ export default function FeaturedProducts() {
         </div>
       </div>
     </section>
+    </div>
   );
 }

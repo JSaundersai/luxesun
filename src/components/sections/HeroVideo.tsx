@@ -92,14 +92,17 @@ export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
   }, [reducedMotion, videoReady, videoStarted]);
 
   return (
-    <section className="relative min-h-[100vh] flex items-end overflow-hidden bg-near-black">
+    <section
+      data-nav-overlay
+      className="relative isolate flex h-[60svh] min-h-[480px] max-h-[640px] items-end overflow-hidden rounded-b-sheet bg-near-black sm:h-[58svh] sm:max-h-[720px] lg:h-auto lg:max-h-none lg:min-h-[100vh] lg:rounded-none"
+    >
       {/* Background image — instant poster, fallback, and LCP element */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/placeholders/hero-sun.jpg"
           alt="Woman in UPF 50+ sun-protective activewear on a beach volleyball court at golden hour"
           fill
-          className="object-cover"
+          className="object-cover object-[72%_center] lg:object-center"
           priority
           sizes="100vw"
         />
@@ -124,31 +127,39 @@ export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
         </video>
       )}
 
-      {/* Overlay — bottom + left gradients keep the headline readable */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-near-black/70 via-near-black/10 to-near-black/30" />
+      {/* Overlay — bottom + left gradients keep the headline readable; a soft
+          top fade keeps the floating mobile controls legible on bright sky. */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-near-black/75 via-near-black/10 to-near-black/30 lg:from-near-black/70" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-near-black/50 via-transparent to-transparent" />
 
       {/* Content */}
-      <div className="relative z-[2] px-6 pb-24 pt-32 max-w-[1400px] mx-auto w-full">
+      <div className="relative z-[2] mx-auto w-full max-w-[1400px] px-5 pb-8 pt-28 sm:px-8 sm:pb-10 lg:px-6 lg:pb-24 lg:pt-32">
         <FadeIn>
           <div className="max-w-[650px]">
-            <p className="font-sans text-[0.7rem] font-medium tracking-[0.35em] uppercase text-ivory/90 mb-6 [text-shadow:0_1px_16px_rgba(20,20,19,0.55)]">
+            <p className="mb-6 hidden font-sans text-[0.7rem] font-medium uppercase tracking-[0.35em] text-ivory/90 [text-shadow:0_1px_16px_rgba(20,20,19,0.55)] lg:block">
               Certified UPF 50+ Sun Protection
             </p>
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-[5rem] font-medium leading-[1.0] text-ivory mb-8">
+            <h1 className="mb-3 font-serif text-[2.75rem] font-medium leading-[1.0] text-ivory sm:text-[3.4rem] lg:mb-8 lg:text-[5rem]">
               Play Longer.
               <br />
               Stay Covered.
             </h1>
-            <p className="font-sans text-[1rem] font-light leading-[1.7] text-ivory/95 mb-12 max-w-[440px] [text-shadow:0_1px_16px_rgba(20,20,19,0.55)]">
+            {/* Mobile: short, app-style subtitle */}
+            <p className="mb-6 max-w-[320px] font-sans text-[1.02rem] leading-[1.45] text-ivory/90 [text-shadow:0_1px_16px_rgba(20,20,19,0.55)] sm:max-w-[420px] lg:hidden">
+              Certified UPF 50+ layers for the court, the trail and every sun sport.
+            </p>
+            <p className="mb-12 hidden max-w-[440px] font-sans text-[1rem] font-light leading-[1.7] text-ivory/95 [text-shadow:0_1px_16px_rgba(20,20,19,0.55)] lg:block">
               Sun-protective sleeves, crops, shirts and base layers engineered
               for beach volleyball, running and every sun sport. UPF 50+
               coverage that moves the way you do.
             </p>
-            <div className="flex gap-5 flex-wrap">
+            <div className="flex flex-wrap gap-5">
+              <a href="#products" className="btn-pill-light min-w-[180px] lg:hidden">
+                Shop the range
+              </a>
               <a
                 href="#products"
-                className="inline-flex items-center justify-center rounded-full bg-ivory px-10 py-4 font-sans text-[0.8rem] font-medium uppercase tracking-[0.15em] text-near-black no-underline cursor-pointer transition-all duration-300 hover:bg-warm-sand"
+                className="hidden cursor-pointer items-center justify-center rounded-full bg-ivory px-10 py-4 font-sans text-[0.8rem] font-medium uppercase tracking-[0.15em] text-near-black no-underline transition-all duration-300 hover:bg-warm-sand lg:inline-flex"
               >
                 Shop the Range
               </a>
@@ -158,7 +169,7 @@ export default function HeroVideo({ startDelayMs = 0 }: HeroVideoProps) {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2]">
+      <div className="absolute bottom-8 left-1/2 z-[2] hidden -translate-x-1/2 lg:block">
         <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-ivory/40 to-transparent animate-pulse" />
       </div>
     </section>

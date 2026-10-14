@@ -1,6 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Providers from "./providers";
+
+// Edge-to-edge on iPhone Pro / Pro Max and Galaxy Z Fold (cover + main).
+// Components pad themselves with env(safe-area-inset-*) where needed.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f5f4ed",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://luxesun.com.au"),

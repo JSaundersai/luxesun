@@ -59,7 +59,7 @@ export default function CollectionPage() {
   return (
     <PageLayout>
       {/* Collection Header with inline subcategories */}
-      <section className="px-6 pt-8 pb-4">
+      <section className="px-5 pb-4 pt-4 sm:px-8 lg:px-6 lg:pt-8">
         <div className="max-w-[1400px] mx-auto">
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-12">
@@ -116,7 +116,7 @@ export default function CollectionPage() {
       </section>
 
       {/* Products */}
-      <section className="px-6 py-12 bg-ivory border-t border-border-cream min-h-[40vh]">
+      <section className="min-h-[40vh] border-t border-border-cream bg-ivory px-5 py-10 sm:px-8 lg:px-6 lg:py-12">
         <div className="max-w-[1400px] mx-auto">
           <FadeIn className="text-center mb-10">
             <p className="section-eyebrow">{activeSubCategory || "All Products"}</p>
@@ -137,7 +137,7 @@ export default function CollectionPage() {
           </FadeIn>
 
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+            <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:grid-cols-3 sm:gap-x-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12">
               {filteredProducts.map((product, i) => (
                 <FadeIn key={product.id} delay={i * 100}>
                   <ProductCard product={product} />
